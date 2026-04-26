@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop Jurnalistik</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- navbar start-->
+  <nav class="navbar">    
+    <div class="brand">
+        <img src=".//img/logodsoul.png" class="logo" alt="logo">
+        <a href="#" class="navbar-logo">sman1krembung<span>jurnalistik</span>.</a>
+      </div>
+      <div class="navbar-nav">
+        <a href="index.html#home">Home</a>
+        <a href="index.html#about">Tentang Kami</a>
+        <a href="index.html#Menu">Berita</a>
+        <a href="index.html#contact">Kontak</a>
+      </div>
+
+      <div class="nav-right">
+        <a href="#" id="search"><i data-feather="search"></i></a>
+        <a href="#" id="shopping-cart"><i data-feather="shopping-cart"></i></a>
+        <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+      </div>
+  </nav>
+     <!-- navbar end-->
+  <!-- HERO BERITA -->
+<section class="hero-berita">
+  <div class="overlay">
+    <h1>Workshop Jurnalistik SMAN 1 Krembung</h1>
+    <p>Home > Berita > Workshop Jurnalistik</p>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info-berita">
+  <p><b>Dipublikasikan:</b> 21 April 2026</p>
+  <p><b>Penulis:</b> Tim Jurnalistik</p>
+</section>
+
+<!-- ISI BERITA -->
+<section class="detail-berita">
+  <img src="img/berita1.jpg" alt="">
+
+  <p>
+    SMAN 1 Krembung mengadakan workshop jurnalistik untuk meningkatkan kemampuan siswa dalam menulis dan menyampaikan informasi secara profesional.
+  </p>
+
+  <p>
+    Kegiatan ini diikuti oleh siswa dari berbagai kelas dan dibimbing oleh narasumber berpengalaman di bidang media dan komunikasi.
+  </p>
+
+  <p>
+    Diharapkan melalui kegiatan ini, siswa mampu mengembangkan kemampuan berpikir kritis dan kreatif dalam dunia jurnalistik.
+  </p>
+</section>
+
+<div class="back-button">
+  <button onclick="history.back()">← Kembali</button>
+</div>
+
+<!-- 🔥 BERITA LAINNYA -->
+<section class="berita-lain">
+  <h2>Berita Lainnya</h2>
+
+  <div class="berita-grid">
+
+    <a href="berita2.html" class="card-link">
+      <div class="card">
+        <img src="img/berita2.jpg">
+        <h3>Lomba Menulis</h3>
+        <p>Siswa mengikuti lomba menulis tingkat sekolah.</p>
+      </div>
+    </a>
+
+    <a href="berita1.html" class="card-link">
+      <div class="card">
+        <img src="img/berita1.jpg">
+        <h3>Workshop Jurnalistik</h3>
+        <p>Pelatihan jurnalistik untuk siswa.</p>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 SMAN 1 Krembung Jurnalistik</p>
+</footer>
+
+  <script src="https://unpkg.com/feather-icons"></script>
+<script>
+  feather.replace();
+</script>
+
+<script>
+const menu = document.querySelector('#hamburger-menu');
+const nav = document.querySelector('.navbar-nav');
+
+menu.onclick = () => {
+  nav.classList.toggle('active');
+};
+</script>
+</body>
+</html>
