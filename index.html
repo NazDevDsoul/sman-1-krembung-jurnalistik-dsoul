@@ -28,7 +28,8 @@
       <div class="navbar-nav">
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
-        <a href="#Menu">Berita</a>
+        <a href="berita.html">Berita</a>
+        <a href="karya.html" class="active">Karya</a>
         <a href="#contact">Kontak</a>
       </div>
 
@@ -40,31 +41,75 @@
     </nav>
     <!-- navbar end-->
 
-    <!-- hero section start -->
     <section class="hero" id="home">
-      <main class="content">
-        <h1>Mari Nikmati Sman 1 krembung<span>jurnalistik</span></h1>
-        <p>lorem ipsum doret sheu eusuab etuaju acusantiarum enim</p>
-        <a href="#" class="cta">Beli sekarang</a>
-      </main>
-    </section>
-    <!-- hero section end -->
 
-    <!--About section start-->
-    <section id="about" class="about">
-      <h2><span>Tentang</span> Kami</span></h2>
-      <div class="row">
-        <div class="about-img">
-          <img src="img/tentang-kami.jpg" alt="Tentang Kami">
-        </div>
-        <div class="content">
-          <h3>Kenapa Jurnalistik sman 1 krembung?</h3>
-          <p>lorem ipsum dolor sit amet conse jd diwdj</p>
-          <p>lorem ipsum dolor sit amet conse jd diwdj</p>
-        </div>
+  <!-- BACKGROUND SLIDER -->
+  <div class="hero-bg">
+    <img src="img/header-bg.jpeg" class="bg active">
+    <img src="img/berita1.jpg" class="bg">
+    <img src="img/berita2.jpg" class="bg">
+  </div>
+
+  <div class="hero-overlay"></div>
+
+  <div class="hero-inner">
+
+    <!-- TOP -->
+    <div class="hero-top">
+
+      <!-- LEFT -->
+      <div class="hero-left">
+        <h1>Mari Nikmati SMAN 1 Krembung <span>Jurnalistik</span></h1>
+        <p>Media informasi, karya, dan kreativitas siswa.</p>
+        <a href="#" class="cta">Baca Sekarang</a>
       </div>
-    </section>
-    <!--About section end-->
+
+      <!-- RIGHT (AGENDA AUTO) -->
+      <div class="hero-right">
+        <h3>Agenda Kegiatan</h3>
+        <div id="agendaHome"></div>
+      </div>
+
+    </div>
+
+    <!-- CARD -->
+    <div class="hero-cards">
+
+      <!-- INFORMASI -->
+      <a href="informasi.html" class="hero-card">
+        <img src="img/berita1.jpg">
+        <div class="hero-card-content">
+          <h4>Informasi Sekolah</h4>
+          <p>Pengumuman dan kegiatan sekolah terbaru.</p>
+        </div>
+      </a>
+
+      <!-- BERITA -->
+      <a href="berita.html" class="hero-card" id="cardBerita">
+        <img id="imgBerita">
+        <div class="hero-card-content">
+          <h4 id="judulBerita"></h4>
+          <p id="descBerita"></p>
+          <span id="dateBerita"></span>
+        </div>
+      </a>
+
+      <!-- KARYA -->
+      <a href="karya.html" class="hero-card" id="cardKarya">
+        <img id="imgKarya">
+        <div class="hero-card-content">
+          <h4 id="judulKarya"></h4>
+          <p id="descKarya"></p>
+          <span id="dateKarya"></span>
+        </div>
+      </a>
+
+    </div>
+
+  </div>
+</section>
+
+    
 
     <!-- Menu section start-->
     <section id="Menu" class="menu">
@@ -154,6 +199,19 @@
     </section>
     <!-- Menu section end-->
 
+    <section id="about" class="about">
+  <h2><span>Tentang</span> Kami</h2>
+  <div class="row">
+    <div class="about-img">
+      <img src="img/tentang-kami.jpg" alt="Tentang Kami">
+    </div>
+    <div class="content">
+      <h3>Kenapa Jurnalistik sman 1 krembung?</h3>
+      <p>lorem ipsum dolor sit amet conse jd diwdj</p>
+      <p>lorem ipsum dolor sit amet conse jd diwdj</p>
+    </div>
+  </div>
+</section>
 
     <!-- ===================== -->
 <!-- KONTAK & SOSIAL -->
@@ -245,6 +303,21 @@
       feather.replace();
     </script>
     <!-- JavaScript-->
+     <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const slides = document.querySelectorAll(".hero .bg");
+  if (slides.length < 2) return;
+
+  let current = 0;
+
+  setInterval(() => {
+    slides[current].classList.remove("active");
+    current = (current + 1) % slides.length;
+    slides[current].classList.add("active");
+  }, 5000);
+});
+</script>
+
     <script src="js/script.js"></script>
     <script>
 const track = document.querySelector('.slide-track');
@@ -288,6 +361,108 @@ track.addEventListener('mousemove', move);
 track.addEventListener('touchstart', start);
 track.addEventListener('touchend', end);
 track.addEventListener('touchmove', move);
+</script>
+
+<script>
+/* ================= BG SLIDER ================= */
+const slides = document.querySelectorAll(".hero .bg");
+let current = 0;
+
+setInterval(() => {
+  slides[current].classList.remove("active");
+  current = (current + 1) % slides.length;
+  slides[current].classList.add("active");
+}, 5000);
+
+/* ================= HERO AUTO ================= */
+let beritaData = [];
+let karyaData = [];
+let iBerita = 0;
+let iKarya = 0;
+
+/* BERITA */
+fetch('data/berita.json')
+  .then(res => res.json())
+  .then(data => {
+    beritaData = data.slice(0,5);
+    updateBerita();
+    setInterval(nextBerita, 5000);
+  });
+
+function updateBerita() {
+  const item = beritaData[iBerita];
+  const card = document.getElementById("cardBerita");
+
+  card.classList.add("fade-out");
+
+  setTimeout(() => {
+    document.getElementById("imgBerita").src = item.gambar;
+    document.getElementById("judulBerita").innerText = item.judul;
+    document.getElementById("descBerita").innerText = item.deskripsi;
+    document.getElementById("dateBerita").innerText = item.tanggal;
+    card.classList.remove("fade-out");
+  }, 300);
+}
+
+function nextBerita() {
+  iBerita = (iBerita + 1) % beritaData.length;
+  updateBerita();
+}
+
+/* KARYA */
+fetch('data/karya.json')
+  .then(res => res.json())
+  .then(data => {
+    karyaData = data.slice(0,5);
+    updateKarya();
+    setInterval(nextKarya, 5000);
+  });
+
+function updateKarya() {
+  const item = karyaData[iKarya];
+  const card = document.getElementById("cardKarya");
+
+  card.classList.add("fade-out");
+
+  setTimeout(() => {
+    document.getElementById("imgKarya").src = item.gambar;
+    document.getElementById("judulKarya").innerText = item.judul;
+    document.getElementById("descKarya").innerText = item.deskripsi;
+    document.getElementById("dateKarya").innerText = item.tanggal;
+    card.classList.remove("fade-out");
+  }, 300);
+}
+
+function nextKarya() {
+  iKarya = (iKarya + 1) % karyaData.length;
+  updateKarya();
+}
+
+/* ================= AGENDA ================= */
+fetch('data/agenda.json')
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("agendaHome");
+    const today = new Date();
+
+    const upcoming = data
+      .map(item => ({ ...item, dateObj: new Date(item.tanggal) }))
+      .filter(item => item.dateObj >= today)
+      .sort((a,b) => a.dateObj - b.dateObj)
+      .slice(0,3);
+
+    upcoming.forEach(item => {
+      container.innerHTML += `
+        <a href="agenda.html">
+          <div class="agenda-card">
+            <h4>${item.tanggal}</h4>
+            <p>${item.judul}</p>
+            <small>${item.lokasi || ""}</small>
+          </div>
+        </a>
+      `;
+    });
+  });
 </script>
   </body>
 </html>

@@ -139,7 +139,279 @@ body {
   display: none;
 }
 
-/* Hero section*/
+/* ================= HERO ================= */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  color: #cbcfcd;
+  isolation: isolate;
+}
+
+/* BACKGROUND SLIDE */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-bg .bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out;
+  display: block;
+}
+
+.hero-bg .bg.active {
+  opacity: 1;
+}
+
+/* OVERLAY */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    90deg,
+    rgba(10, 54, 70, 0.72) 0%,
+    rgba(10, 54, 70, 0.38) 42%,
+    rgba(10, 54, 70, 0.08) 70%,
+    rgba(10, 54, 70, 0) 100%
+  );
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 35%;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    var(--bg) 0%,
+    rgba(203, 207, 205, 0.8) 35%,
+    rgba(203, 207, 205, 0) 100%
+  );
+}
+
+/* WRAPPER */
+.hero-inner {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  padding: 7.5rem 7% 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.hero-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+/* LEFT */
+.hero-left {
+  max-width: 36rem;
+  text-align: left;
+}
+
+.hero-left h1 {
+  font-size: clamp(2.4rem, 4vw, 4.2rem);
+  line-height: 1.08;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.45);
+}
+
+.hero-left h1 span {
+  color: var(--primary);
+}
+
+.hero-left p {
+  max-width: 31rem;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 1.4rem;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+.hero-left .cta {
+  display: inline-block;
+  padding: 0.9rem 2rem;
+  border-radius: 0.7rem;
+  background: var(--primary);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* RIGHT / AGENDA */
+.hero-right {
+  width: min(100%, 18rem);
+  text-align: left;
+}
+
+.hero-right h3 {
+  margin-bottom: 0.75rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.hero-right .agenda-link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+.agenda-card {
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(10px);
+  border-radius: 14px;
+  padding: 0.95rem 1rem;
+  margin-bottom: 0.75rem;
+  transition: transform 0.25s ease, background 0.25s ease, border-color 0.25s ease;
+}
+
+.agenda-card:hover {
+  transform: translateY(-3px);
+  background: rgba(255, 255, 255, 0.28);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.agenda-card h4 {
+  font-size: 1rem;
+  margin-bottom: 0.35rem;
+}
+
+.agenda-card p {
+  font-size: 0.95rem;
+  margin-bottom: 0.2rem;
+}
+
+.agenda-card small {
+  opacity: 0.9;
+}
+
+/* 3 CARDS */
+.hero-cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.hero-card {
+  position: relative;
+  min-height: 14rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  box-sizing: border-box;
+  text-decoration: none;
+  color: #fff;
+  background: #000;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.18);
+}
+
+.hero-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transform: scale(1.01);
+  transition: transform 0.35s ease;
+}
+
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.86), rgba(0, 0, 0, 0.34) 55%, rgba(0, 0, 0, 0.02));
+}
+
+.hero-card:hover img {
+  transform: scale(1.07);
+}
+
+.hero-card-content {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  padding: 1rem 1rem 0.95rem;
+}
+
+.hero-card-content h4 {
+  font-size: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.hero-card-content p {
+  font-size: 0.85rem;
+  line-height: 1.4;
+  margin-bottom: 0.45rem;
+}
+
+.hero-card-date {
+  display: block;
+  font-size: 0.78rem;
+  opacity: 0.9;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .hero-inner {
+    padding: 7rem 5% 2rem;
+  }
+
+  .hero-top {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .hero-right {
+    width: 100%;
+  }
+
+  .hero-cards {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card {
+    min-height: 13rem;
+  }
+}
+
+@media (max-width: 450px) {
+  .hero-left h1 {
+    font-size: 2.4rem;
+  }
+
+  .hero-left p {
+    font-size: 0.95rem;
+  }
+
+  .hero-left .cta {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+/* Hero section
 .hero{
   min-height: 100vh;
   display: flex;
@@ -650,7 +922,844 @@ body {
   font-size: 0.9rem;
 }
 
+/* ========================= */
+/* INFO PAGE                 */
+/* ========================= */
+.info-hero {
+  background: var(--bg) center/cover no-repeat;
+  min-height: 45vh;
+  margin-top: 70px;
+  padding: 3rem 7%;
+  display: flex;
+  align-items: center;
+}
 
+.info-hero-box {
+  background: var(--box-bg) center/cover no-repeat;
+  position: relative;
+  padding: 2rem;
+  border-radius: 16px;
+  max-width: 600px;
+  overflow: hidden;
+}
+
+.info-hero-box::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+}
+
+.info-hero-content {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+}
+.info-hero {
+  min-height: 45vh;
+  margin-top: 70px;
+  padding: 3rem 7%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(to right, rgba(10, 54, 70, 0.8), rgba(10, 54, 70, 0.25)),
+    url('../img/info.jpg') center/cover no-repeat;
+  color: #fff;
+}
+
+.info-hero-content {
+  max-width: 700px;
+}
+
+.info-kecil {
+  font-size: 0.9rem;
+  opacity: 0.85;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.info-hero h1 {
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  line-height: 1.1;
+  margin-bottom: 0.8rem;
+}
+
+.info-sub {
+  max-width: 600px;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  opacity: 0.95;
+}
+
+.info-page {
+  padding: 3rem 7% 4rem;
+  color: #000;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.info-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.4rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(10, 54, 70, 0.08);
+}
+
+.info-card h2 {
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.info-card p {
+  color: #333;
+  line-height: 1.75;
+  font-size: 1rem;
+}
+
+.info-banner {
+  margin: 1.5rem 0;
+}
+
+.info-banner-box {
+  background: linear-gradient(135deg, rgba(10, 54, 70, 0.96), rgba(10, 54, 70, 0.82));
+  color: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+}
+
+.info-banner-box h2 {
+  margin-bottom: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.info-banner-box p {
+  line-height: 1.75;
+  opacity: 0.95;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 0.9rem 1.4rem;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  transition: 0.25s;
+}
+
+.back-btn:hover {
+  background: #072a36;
+}
+
+
+/* ========================= */
+/* HERO BERITA FIX */
+/* ========================= */
+.news-hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  margin-top: 70px;
+  overflow: hidden;
+}
+
+/* background dari HTML img */
+.news-hero img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* overlay biar nyatu ke bawah */
+.news-hero::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 54, 70, 0.75),
+    rgba(10, 54, 70, 0.5),
+    rgba(203,207,205,1)
+  );
+  z-index: 1;
+}
+
+/* isi hero */
+.news-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 7%;
+  max-width: 600px;
+  color: white;
+}
+
+.news-content h1 {
+  font-size: 3rem;
+  margin: 10px 0;
+}
+
+.news-content p {
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.label {
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
+
+/* ========================= */
+/* WRAPPER BERITA */
+/* ========================= */
+.news-wrapper {
+  background: linear-gradient(
+    to bottom,
+    #cbcfcd,
+    #f5f5f5
+  );
+  padding: 40px 7%;
+}
+
+/* ========================= */
+/* FILTER */
+/* ========================= */
+.filter {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.filter button {
+  padding: 8px 18px;
+  margin: 5px;
+  border-radius: 20px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: 500;
+}
+
+.filter button.active,
+.filter button:hover {
+  background: var(--primary);
+  color: white;
+}
+
+/* ========================= */
+/* GRID */
+/* ========================= */
+.news-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* ========================= */
+/* CARD FIX */
+/* ========================= */
+.news-card {
+  background: #fff;
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+  color: black;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s ease;
+  display: block;
+}
+
+/* hover smooth */
+.news-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+}
+
+/* gambar */
+.news-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+/* isi */
+.news-body {
+  padding: 15px;
+}
+
+.news-body h3 {
+  color: var(--primary);
+  margin-bottom: 5px;
+}
+
+.news-body p {
+  font-size: 0.9rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* tanggal */
+.news-meta {
+  font-size: 12px;
+  margin-top: 10px;
+  color: gray;
+}
+
+/* ========================= */
+/* RESPONSIVE */
+/* ========================= */
+@media (max-width: 992px) {
+  .news-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px){
+  .news-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .news-content h1 {
+    font-size: 2rem;
+  }
+
+  .news-hero {
+    min-height: 40vh;
+  }
+}
+
+/* ================= HERO SLIDER ================= */
+.news-hero {
+  position: relative;
+  height: 60vh;
+  margin-top: 70px;
+  overflow: hidden;
+}
+
+/* slider container */
+.hero-slider {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  transition: transform 1s ease;
+}
+
+/* tiap slide */
+.hero-slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* overlay */
+.hero-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,54,70,0.7),
+    rgba(10,54,70,0.4),
+    rgba(203,207,205,1)
+  );
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* text */
+.news-content {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  padding: 0 7%;
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: 600px;
+}
+
+/* ================= HAMBURGER FIX ================= */
+@media (max-width: 768px){
+
+  .navbar .navbar-nav {
+    position: absolute;
+    top: 100%;
+    right: -100%;
+    background: #fff;
+    width: 250px;
+    height: 100vh;
+    transition: 0.3s;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2rem;
+  }
+
+  .navbar .navbar-nav.active {
+    right: 0;
+  }
+
+  .navbar .navbar-nav a {
+    color: var(--primary);
+    margin: 1rem;
+    font-size: 1.2rem;
+  }
+
+  #hamburger-menu {
+    display: block;
+  }
+}
+
+/* ================= BODY FLEX FIX ================= */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* biar konten dorong footer */
+.news-wrapper {
+  flex: 1;
+}
+
+/* ================= BACK BUTTON ================= */
+.back-wrapper {
+  text-align: center;
+  margin: 40px 0 20px;
+}
+
+.back-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: #072a36;
+}
+
+/* ================= FOOTER FIX ================= */
+.footer {
+  background: var(--primary);
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  margin-top: auto; 
+}
+
+.footer-links {
+  margin: 1rem 0;
+}
+
+.footer-links a {
+  color: #fff;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+/* ================= HERO KARYA ================= */
+.karya-hero {
+  height: 55vh;
+  margin-top: 70px;
+  position: relative;
+  background: url('../img/karya-bg.jpg') center/cover no-repeat;
+}
+
+.karya-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(10,54,70,0.7),
+    rgba(203,207,205,1)
+  );
+}
+
+.karya-content {
+  position: absolute;
+  color: white;
+  padding: 0 7%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ================= GRID ================= */
+.karya-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+}
+
+/* ================= CARD ================= */
+.karya-card {
+  background: white;
+  border-radius: 18px;
+  overflow: hidden;
+  text-decoration: none;
+  color: black;
+  transition: 0.3s;
+}
+
+.karya-card:hover {
+  transform: scale(1.03);
+}
+
+.karya-img {
+  position: relative;
+}
+
+.karya-img img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+/* badge beda warna */
+.karya-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #ff9800;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+.karya-body {
+  padding: 15px;
+}
+
+/* wrapper */
+.karya-wrapper {
+  background: linear-gradient(#cbcfcd, #f5f5f5);
+  padding: 40px 7%;
+}
+
+/* responsive */
+@media (max-width: 768px){
+  .karya-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================= HERO KARYA SLIDER ================= */
+.karya-hero {
+  position: relative;
+  height: 60vh;
+  margin-top: 70px;
+  overflow: hidden;
+}
+
+.karya-slider {
+  display: flex;
+  height: 100%;
+  transition: transform 1s ease;
+}
+
+.karya-slide {
+  min-width: 100%;
+  height: 100%;
+}
+
+.karya-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* overlay beda dikit biar feel beda */
+.karya-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(255,152,0,0.6),
+    rgba(10,54,70,0.5),
+    rgba(203,207,205,1)
+  );
+  z-index: 1;
+}
+
+.karya-content {
+  position: absolute;
+  z-index: 2;
+  color: white;
+  padding: 0 7%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ================= HERO ================= */
+.agenda-page .agenda-hero {
+  height: 60vh;
+  margin-top: 70px;
+  position: relative;
+  overflow: hidden;
+}
+
+.agenda-page .agenda-slider {
+  display: flex;
+  height: 100%;
+  transition: transform 1s ease;
+}
+
+.agenda-page .agenda-slide {
+  min-width: 100%;
+}
+
+.agenda-page .agenda-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* overlay */
+.agenda-page .agenda-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,150,136,0.6),
+    rgba(10,54,70,0.5),
+    #cbcfcd
+  );
+  top: 0;
+  left: 0;
+}
+
+/* text */
+.agenda-page .agenda-content {
+  position: absolute;
+  color: white;
+  padding: 0 7%;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+
+/* ================= WRAPPER ================= */
+.agenda-page .agenda-wrapper {
+  padding: 40px 7%;
+  background: linear-gradient(#cbcfcd, #f5f5f5);
+}
+
+/* ================= FILTER ================= */
+.agenda-page .filter {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.agenda-page .filter button {
+  padding: 8px 18px;
+  margin: 5px;
+  border-radius: 20px;
+  border: none;
+  background: #fff;
+  cursor: pointer;
+}
+
+.agenda-page .filter .active {
+  background: var(--primary);
+  color: white;
+}
+
+/* ================= LIST ================= */
+.agenda-page .agenda-list {
+  display: grid;
+  gap: 20px;
+}
+
+/* ================= CARD ================= */
+.agenda-page .agenda-card {
+  display: flex;
+  background: white;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+}
+
+/* gambar */
+.agenda-page .agenda-card img {
+  width: 150px;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* isi */
+.agenda-page .agenda-body {
+  padding: 15px;
+}
+
+.agenda-page .agenda-date {
+  font-size: 12px;
+  color: gray;
+}
+
+/* status */
+.agenda-page .status {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.agenda-page .status.upcoming {
+  background: #4caf50;
+  color: white;
+}
+
+.agenda-page .status.done {
+  background: #999;
+  color: white;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px){
+  .agenda-page .agenda-card {
+    flex-direction: column;
+  }
+
+  .agenda-page .agenda-card img {
+    width: 100%;
+    height: 200px;
+  }
+}
+
+.agenda-page .agenda-body {
+  color: #000; /* 🔥 ini kunci */
+}
+
+.agenda-page .agenda-body h3 {
+  color: var(--primary);
+}
+
+.agenda-page .agenda-body p {
+  color: #555;
+}
+
+/* ================= HERO CARD (BALIK KE STYLE KEREN) ================= */
+.hero-card {
+  position: relative;
+  flex: 1;
+  height: 180px;
+  border-radius: 15px;
+  overflow: hidden;
+  border: 2px solid white; /* 🔥 garis putih */
+  color: white;
+}
+
+.hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* overlay gelap biar teks kebaca */
+.hero-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.7),
+    rgba(0,0,0,0.2)
+  );
+}
+
+/* isi text */
+.hero-card-content {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  z-index: 2;
+}
+
+.hero-card-content h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+}
+
+.hero-card-content p {
+  font-size: 0.8rem;
+  margin-top: 5px;
+  color: #ddd;
+}
+
+.hero-card-content span {
+  font-size: 0.7rem;
+  color: #ccc;
+}
+
+/* hover biar hidup */
+.hero-card:hover {
+  transform: translateY(-5px);
+  transition: 0.3s;
+}
+
+/* ================= AGENDA (BALIK STYLE LAMA) ================= */
+.agenda-card {
+  background: rgba(255,255,255,0.15);
+  border: 1px solid rgba(255,255,255,0.3);
+  color: white; /* 🔥 penting */
+  padding: 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(6px);
+}
+
+.agenda-card h4 {
+  margin: 0;
+  color: #fff;
+}
+
+.agenda-card p {
+  margin: 3px 0;
+  color: #eee;
+}
+
+.agenda-card small {
+  color: #ccc;
+}
+
+/* hover */
+.agenda-card:hover {
+  background: rgba(255,255,255,0.25);
+  transition: 0.3s;
+}
 
 /* Media Queries*/
 

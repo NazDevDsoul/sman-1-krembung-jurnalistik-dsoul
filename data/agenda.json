@@ -1,0 +1,14 @@
+[
+  {
+    "judul": "Workshop Jurnalistik",
+    "tanggal": "2026-05-10",
+    "deskripsi": "Pelatihan jurnalistik untuk siswa",
+    "gambar": "img/berita1.jpg"
+  },
+  {
+    "judul": "Lomba Menulis",
+    "tanggal": "2026-04-01",
+    "deskripsi": "Kompetisi menulis tingkat sekolah",
+    "gambar": "img/berita2.jpg"
+  }
+]

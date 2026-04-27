@@ -1,0 +1,23 @@
+[
+  {
+    "judul": "Fotografi Sekolah",
+    "deskripsi": "Hasil foto kegiatan sekolah",
+    "gambar": "img/berita1.jpg",
+    "kategori": "foto",
+    "link": "#"
+  },
+  {
+    "judul": "Video Dokumenter",
+    "deskripsi": "Dokumentasi kegiatan siswa",
+    "gambar": "img/karya2.jpg",
+    "kategori": "video",
+    "link": "#"
+  },
+  {
+    "judul": "Artikel Opini",
+    "deskripsi": "Tulisan opini siswa",
+    "gambar": "img/karya3.jpg",
+    "kategori": "artikel",
+    "link": "#"
+  }
+]

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Karya Siswa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR (TETAP SAMA) -->
+<nav class="navbar">
+  <div class="brand">
+    <img src="img/logodsoul.png" class="logo">
+    <a href="index.html" class="navbar-logo">
+      sman1krembung<span>jurnalistik</span>.
+    </a>
+  </div>
+
+  <div class="navbar-nav">
+    <a href="index.html">Home</a>
+    <a href="berita.html">Berita</a>
+    <a href="karya.html" class="active">Karya</a>
+    <a href="index.html#contact">Kontak</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="karya-hero">
+
+  <!-- SLIDER -->
+  <div class="karya-slider" id="karyaSlider"></div>
+
+  <!-- OVERLAY -->
+  <div class="karya-overlay"></div>
+
+  <!-- TEXT -->
+  <div class="karya-content">
+    <p class="label">Kreativitas Siswa</p>
+    <h1>Karya Terbaik</h1>
+    <p>Hasil karya jurnalistik siswa SMAN 1 Krembung</p>
+  </div>
+
+</section>
+
+<!-- CONTENT -->
+<section class="karya-wrapper">
+
+  <div class="filter">
+    <button data-filter="all" class="active">Semua</button>
+    <button data-filter="foto">Foto</button>
+    <button data-filter="video">Video</button>
+    <button data-filter="artikel">Artikel</button>
+  </div>
+
+  <div class="karya-grid" id="karyaContainer"></div>
+
+</section>
+
+<!-- BACK -->
+<div class="back-wrapper">
+  <a href="index.html" class="back-btn">← Kembali ke Beranda</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h3>SMAN 1 Krembung Jurnalistik</h3>
+  <p>Wadah kreativitas dan karya siswa</p>
+</footer>
+
+<script src="js/karya.js"></script>
+<script>feather.replace();</script>
+
+</body>
+</html>

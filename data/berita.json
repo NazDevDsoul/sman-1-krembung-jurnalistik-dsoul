@@ -1,0 +1,34 @@
+[
+  {
+    "judul": "Workshop Jurnalistik",
+    "deskripsi": "Pelatihan jurnalistik untuk siswa di aula sekolah.",
+    "gambar": "img/berita1.jpg",
+    "tanggal": "29 April 2026",
+    "kategori": "berita",
+    "link": "berita1.html"
+  },
+  {
+    "judul": "Ekstra Jurnalistik",
+    "deskripsi": "Pelatihan jurnalistik untuk siswa di aula sekolah.",
+    "gambar": "img/berita1.jpg",
+    "tanggal": "29 April 2026",
+    "kategori": "berita",
+    "link": "berita1.html"
+  },
+  {
+    "judul": "Video Event Sekolah",
+    "deskripsi": "Dokumentasi kegiatan sekolah yang meriah.",
+    "gambar": "img/video1.jpg",
+    "tanggal": "25 April 2026",
+    "kategori": "video",
+    "link": "video1.html"
+  },
+  {
+    "judul": "Wawancara Ketua OSIS",
+    "deskripsi": "Diskusi santai tentang program kerja OSIS.",
+    "gambar": "img/wawancara1.jpg",
+    "tanggal": "20 April 2026",
+    "kategori": "wawancara",
+    "link": "wawancara1.html"
+  }
+]
