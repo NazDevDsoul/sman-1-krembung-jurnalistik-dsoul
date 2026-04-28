@@ -1761,6 +1761,386 @@ body {
   transition: 0.3s;
 }
 
+/* ================= SLIDER CLEAN ================= */
+
+.slider {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+}
+
+/* sembunyikan scrollbar */
+.slider::-webkit-scrollbar {
+  display: none;
+}
+
+.slide-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+}
+
+/* drag state */
+.slide-track.dragging {
+  cursor: grabbing;
+}
+
+/* CARD */
+.card {
+  width: 250px;
+  flex-shrink: 0;
+  background: white;
+  border-radius: 20px;
+  padding: 15px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.card img {
+  width: 100%;
+  border-radius: 15px;
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 12px;
+  background: var(--primary);
+  color: white;
+  border-radius: 8px;
+}
+
+/* ================= ABOUT GRID ================= */
+
+.about {
+  padding: 6rem 7% 3rem;
+  text-align: center;
+}
+
+.about h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.about h2 span {
+  color: var(--primary);
+}
+
+.about-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+/* ================= BASE CARD ================= */
+
+.about-card {
+  position: relative;
+  background: white;
+  border-radius: 18px;
+  padding: 1.5rem;
+  text-decoration: none;
+  color: #000;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  transition: 0.3s ease;
+  overflow: hidden;
+  min-height: 180px;
+}
+
+.about-card:hover {
+  transform: translateY(-6px);
+}
+
+/* ICON */
+.about-icon {
+  font-size: 2rem;
+  margin-bottom: 0.6rem;
+}
+
+/* TEXT */
+.about-card h3 {
+  color: var(--primary);
+  margin-bottom: 0.4rem;
+}
+
+.about-card p {
+  font-size: 0.85rem;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* ================= CTA CARD ================= */
+
+.cta-card {
+  background: linear-gradient(135deg, var(--primary), #0d5a73);
+  color: white;
+}
+
+.cta-card h3,
+.cta-card p {
+  color: white;
+}
+
+.cta-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 8px 14px;
+  background: white;
+  color: var(--primary);
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* ================= DYNAMIC CARD ================= */
+
+.dynamic-card {
+  padding: 0;
+  color: white;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+.dynamic-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* overlay gelap */
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2));
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* fade effect */
+.fade-out {
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 992px) {
+  .about-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .about-wrapper {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* INTERNAL CARD BEDA NUANSA */
+.about-card.internal .card-overlay {
+  background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(10,54,70,0.4));
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.about-card.internal .about-icon {
+  color: #00e5ff;
+}
+
+.about-card.internal .card-overlay {
+  background: linear-gradient(
+    to top,
+    rgba(0,0,0,0.9),
+    rgba(10,54,70,0.35)
+  );
+}
+
+.about-card.internal .about-icon {
+  color: #00e5ff;
+}
+
+.agenda-detail p {
+  font-size: 0.85rem;
+  margin: 3px 0;
+}
+
+.subjudul {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+/* KALENDER */
+.calendar-section {
+  padding: 3rem;
+  text-align: center;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  max-width: 600px;
+  margin: auto;
+}
+
+.calendar-day {
+  padding: 15px;
+  background: #747474;
+  border-radius: 10px;
+}
+
+.calendar-day.active {
+  background: #00bcd4;
+  color: #cbcfcd;
+  font-weight: bold;
+}
+
+.calendar-day.today {
+  border: 2px solid #00e5ff;
+  color: #00e5ff;
+  font-weight: bold;
+}
+
+.calendar-day.event {
+  background: #00e5ff;
+  color: black;
+  border-radius: 8px;
+}
+
+/* CARD COMPACT */
+.agenda-card.compact {
+  display: flex;
+  gap: 15px;
+  padding: 15px;
+  background: #111;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  text-decoration: none;
+  color: white;
+}
+
+/* KOTAK TANGGAL */
+.agenda-date-box {
+  min-width: 60px;
+  text-align: center;
+  background: #00e5ff;
+  border-radius: 10px;
+  padding: 10px;
+  color: black;
+  font-weight: bold;
+}
+
+.agenda-date-box .day {
+  font-size: 20px;
+  display: block;
+}
+
+.agenda-date-box .month {
+  font-size: 12px;
+}
+
+/* CONTENT */
+.agenda-content h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.agenda-content .sub {
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* MINI INFO */
+.agenda-mini {
+  display: flex;
+  gap: 10px;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* KEGIATAN */
+.kegiatan {
+  font-size: 12px;
+  margin-top: 5px;
+  opacity: 0.7;
+}
+
+/* STATUS */
+.status {
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.status.upcoming {
+  background: #00e5ff;
+  color: black;
+}
+
+.status.done {
+  background: rgb(77, 77, 77);
+}
+
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #b3b3b3;
+  border-radius: 6px;
+}
+
+.cal-box {
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+
+  background: rgba(255,255,255,0.05);
+  border-radius: 6px;
+}
+
+.cal-box.header {
+  font-weight: bold;
+  background: transparent;
+}
+
+.cal-box.today {
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.cal-box.event {
+  background: #2fc72c;
+  color: black;
+}
+
+.cal-box.empty {
+  background: transparent;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 400px;
+  margin: 0 auto 10px;
+}
+
+.calendar-header button {
+  background: #067784;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+
 /* Media Queries*/
 
 /* Laptop */

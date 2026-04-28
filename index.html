@@ -66,7 +66,7 @@
 
       <!-- RIGHT (AGENDA AUTO) -->
       <div class="hero-right">
-        <h3>Agenda Kegiatan</h3>
+        <h3>Agenda Kegiatan Mendatang</h3>
         <div id="agendaHome"></div>
       </div>
 
@@ -113,107 +113,81 @@
 
     <!-- Menu section start-->
     <section id="Menu" class="menu">
-      <h2><span>Berita</span> Kami</span></h2>
-      <p class="subjudul">Lorem ipsum dolor sit amet</p>
+  <h2><span>Berita</span> Kami</h2>
+  <p class="subjudul">Update berita terbaru sekolah</p>
 
-        <div class="slider">
-         <div class="slide-track">
-
-          <!-- CARD -->
-        <a href="berita1.html" class="card-link">
-         <div class="card">
-            <img src="img/berita1.jpg">
-            <h3>Workshop Jurnalistik</h3>
-            <p>Pelatihan jurnalistik untuk siswa.</p>
-            <a href="berita1.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <a href="berita2.html" class="card-link">
-          <div class="card">
-            <img src="img/berita2.jpg">
-            <h3>Lomba Menulis</h3>
-            <p>Siswa mengikuti lomba menulis.</p>
-            <a href="berita2.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <!-- DUPLIKAT (biar loop mulus) -->
-        <a href="berita1.html" class="card-link">
-         <div class="card">
-            <img src="img/berita1.jpg">
-            <h3>Workshop Jurnalistik</h3>
-            <p>Pelatihan jurnalistik untuk siswa.</p>
-            <a href="berita1.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <a href="berita2.html" class="card-link">
-          <div class="card">
-            <img src="img/berita2.jpg">
-            <h3>Lomba Menulis</h3>
-            <p>Siswa mengikuti lomba menulis.</p>
-            <a href="berita2.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <!-- Duplikat 2-->
-        <a href="berita1.html" class="card-link">
-         <div class="card">
-            <img src="img/berita1.jpg">
-            <h3>Workshop Jurnalistik</h3>
-            <p>Pelatihan jurnalistik untuk siswa.</p>
-            <a href="berita1.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <a href="berita2.html" class="card-link">
-          <div class="card">
-            <img src="img/berita2.jpg">
-            <h3>Lomba Menulis</h3>
-            <p>Siswa mengikuti lomba menulis.</p>
-            <a href="berita2.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <!-- Duplikat 3-->
-        <a href="berita1.html" class="card-link">
-         <div class="card">
-            <img src="img/berita1.jpg">
-            <h3>Workshop Jurnalistik</h3>
-            <p>Pelatihan jurnalistik untuk siswa.</p>
-            <a href="berita1.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-        <a href="berita2.html" class="card-link">
-          <div class="card">
-            <img src="img/berita2.jpg">
-            <h3>Lomba Menulis</h3>
-            <p>Siswa mengikuti lomba menulis.</p>
-            <a href="berita2.html" class="btn">Baca Selengkapnya</a>
-          </div>
-        </a>
-
-      </div>
-    </section>
+  <div class="slider">
+    <div class="slide-track" id="beritaContainer">
+      <!-- isi otomatis -->
+    </div>
+  </div>
+</section>
     <!-- Menu section end-->
 
     <section id="about" class="about">
   <h2><span>Tentang</span> Kami</h2>
-  <div class="row">
-    <div class="about-img">
-      <img src="img/tentang-kami.jpg" alt="Tentang Kami">
-    </div>
-    <div class="content">
-      <h3>Kenapa Jurnalistik sman 1 krembung?</h3>
-      <p>lorem ipsum dolor sit amet conse jd diwdj</p>
-      <p>lorem ipsum dolor sit amet conse jd diwdj</p>
-    </div>
+
+  <div class="about-wrapper">
+
+    <!-- KEGIATAN -->
+    <a href="tentang-kami.html" class="about-card">
+      <div class="about-icon">📌</div>
+      <h3>Kegiatan Kami</h3>
+      <p>Aktivitas jurnalistik, pelatihan, dan event sekolah.</p>
+    </a>
+
+    <!-- PRESTASI (DINAMIS) -->
+    <a href="prestasi.html" class="about-card dynamic-card" id="cardPrestasi">
+      <img id="imgPrestasi">
+      <div class="card-overlay">
+        <div class="about-icon">🏆</div>
+        <h3 id="judulPrestasi"></h3>
+        <p id="descPrestasi"></p>
+      </div>
+    </a>
+
+    <!-- KARYA INTERNAL (DINAMIS) -->
+    <a href="karya-internal.html" class="about-card dynamic-card internal" id="cardKaryaInternal">
+      <img id="imgKaryaInternal">
+      <div class="card-overlay">
+        <div class="about-icon">🔒</div>
+        <h3>Karya Kami</h3>
+        <p id="descKaryaInternal"></p>
+      </div>
+    </a>
+
+    <!-- CTA -->
+    <a href="daftar-ekstra.html" class="about-card cta-card">
+      <div class="about-icon">📝</div>
+      <h3>Pendaftaran Ekstra</h3>
+      <p>Bergabung dengan tim jurnalistik sekarang!</p>
+      <span class="cta-btn">Daftar</span>
+    </a>
+
   </div>
 </section>
 
     <!-- ===================== -->
+     <!-- ================= ORGANISASI ================= -->
+<section class="org-section">
+
+  <!-- STATISTIK -->
+  <div class="org-stats" id="orgStats"></div>
+
+  <!-- STRUKTUR -->
+  <div class="org-grid">
+
+    <div class="org-card" id="sekretaris"></div>
+    <div class="org-card center" id="ketua"></div>
+    <div class="org-card" id="bendahara"></div>
+
+    <div class="org-card" id="koordinator"></div>
+    <div class="org-card" id="member"></div>
+
+  </div>
+
+</section>
+
 <!-- KONTAK & SOSIAL -->
 <!-- ===================== -->
 <section id="contact" class="contact">
@@ -463,6 +437,146 @@ fetch('data/agenda.json')
       `;
     });
   });
+</script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const track = document.getElementById("beritaContainer");
+
+  fetch("data/berita.json")
+    .then(res => res.json())
+    .then(data => {
+      buildSlider(data);
+      enableDrag(track);
+    });
+
+  function buildSlider(data) {
+    const doubled = [...data, ...data]; // INFINITE LOOK
+
+    track.innerHTML = doubled.map((item, i) => `
+      <a href="${item.link}" class="card-link">
+        <div class="card">
+          <img src="${item.gambar}">
+          <h3>${item.judul}</h3>
+          <p>${item.deskripsi}</p>
+          <span class="btn">Baca</span>
+        </div>
+      </a>
+    `).join("");
+  }
+
+  // DRAG SYSTEM
+  function enableDrag(el) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    el.addEventListener("mousedown", (e) => {
+      isDown = true;
+      el.classList.add("dragging");
+      startX = e.pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    });
+
+    el.addEventListener("mouseleave", () => {
+      isDown = false;
+      el.classList.remove("dragging");
+    });
+
+    el.addEventListener("mouseup", () => {
+      isDown = false;
+      el.classList.remove("dragging");
+    });
+
+    el.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      const walk = (x - startX) * 2;
+      el.scrollLeft = scrollLeft - walk;
+    });
+
+    // TOUCH HP
+    el.addEventListener("touchstart", (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - el.offsetLeft;
+      scrollLeft = el.scrollLeft;
+    });
+
+    el.addEventListener("touchend", () => {
+      isDown = false;
+    });
+
+    el.addEventListener("touchmove", (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - el.offsetLeft;
+      const walk = (x - startX) * 2;
+      el.scrollLeft = scrollLeft - walk;
+    });
+  }
+});
+</script>
+
+<script>
+let prestasiData = [];
+let karyaInternalData = [];
+
+let iPrestasi = 0;
+let iKaryaInternal = 0;
+
+/* ================= PRESTASI ================= */
+fetch('data/prestasi.json')
+  .then(res => res.json())
+  .then(data => {
+    prestasiData = data.slice(0, 5);
+    updatePrestasi();
+    setInterval(nextPrestasi, 5000);
+  });
+
+function updatePrestasi() {
+  const item = prestasiData[iPrestasi];
+  const card = document.getElementById("cardPrestasi");
+
+  card.classList.add("fade-out");
+
+  setTimeout(() => {
+    document.getElementById("imgPrestasi").src = item.gambar;
+    document.getElementById("judulPrestasi").innerText = item.judul;
+    document.getElementById("descPrestasi").innerText = item.deskripsi;
+    card.classList.remove("fade-out");
+  }, 300);
+}
+
+function nextPrestasi() {
+  iPrestasi = (iPrestasi + 1) % prestasiData.length;
+  updatePrestasi();
+}
+
+/* ================= KARYA INTERNAL ================= */
+fetch('data/karya-internal.json')
+  .then(res => res.json())
+  .then(data => {
+    karyaInternalData = data.slice(0, 5);
+    updateKaryaInternal();
+    setInterval(nextKaryaInternal, 5000);
+  });
+
+function updateKaryaInternal() {
+  const item = karyaInternalData[iKaryaInternal];
+  const card = document.getElementById("cardKaryaInternal");
+
+  card.classList.add("fade-out");
+
+  setTimeout(() => {
+    document.getElementById("imgKaryaInternal").src = item.gambar;
+    document.getElementById("descKaryaInternal").innerText = item.deskripsi;
+    card.classList.remove("fade-out");
+  }, 300);
+}
+
+function nextKaryaInternal() {
+  iKaryaInternal = (iKaryaInternal + 1) % karyaInternalData.length;
+  updateKaryaInternal();
+}
 </script>
   </body>
 </html>

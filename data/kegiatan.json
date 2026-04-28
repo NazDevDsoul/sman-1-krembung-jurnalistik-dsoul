@@ -1,0 +1,12 @@
+[
+  {
+    "judul": "Liputan Sekolah",
+    "deskripsi": "Meliput kegiatan sekolah secara langsung",
+    "gambar": "img/berita1.jpg"
+  },
+  {
+    "judul": "Pelatihan Jurnalistik",
+    "deskripsi": "Belajar teknik menulis dan wawancara",
+    "gambar": "img/berita2.jpg"
+  }
+]

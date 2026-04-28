@@ -1,0 +1,12 @@
+[
+  {
+    "nama": "Azzam",
+    "jabatan": "Ketua",
+    "foto": "img/user1.jpg"
+  },
+  {
+    "nama": "Fajur",
+    "jabatan": "Wakil Ketua",
+    "foto": "img/user2.jpg"
+  }
+]

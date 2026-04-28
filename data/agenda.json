@@ -1,14 +1,24 @@
 [
   {
-    "judul": "Workshop Jurnalistik",
-    "tanggal": "2026-05-10",
-    "deskripsi": "Pelatihan jurnalistik untuk siswa",
-    "gambar": "img/berita1.jpg"
+    "judul": "Hari pendidikan Nasional",
+    "subjudul": "Lomba",
+    "tanggal": "2026-04-29",
+    "waktu": "07:00 - 12:00",
+    "dresscode": "Baju Adat",
+    "kegiatan": "Lomba Siswa",
+    "deskripsi": "lomba siswa antar kelas",
+    "gambar": "img/berita1.jpg",
+    "link": "https://drive.google.com/"
   },
   {
     "judul": "Lomba Menulis",
+    "subjudul": "Kompetisi internal sekolah",
     "tanggal": "2026-04-01",
+    "waktu": "09:00 - selesai",
+    "dresscode": "Bebas rapi",
+    "kegiatan": "Menulis artikel & opini",
     "deskripsi": "Kompetisi menulis tingkat sekolah",
-    "gambar": "img/berita2.jpg"
+    "gambar": "img/berita2.jpg",
+    "link": "https://drive.google.com/"
   }
 ]

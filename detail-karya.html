@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Detail Karya</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">    
+  <div class="brand">
+    <img src="img/logodsoul.png" class="logo">
+    <a href="index.html" class="navbar-logo">
+      sman1krembung<span>jurnalistik</span>.
+    </a>
+  </div>
+
+  <div class="navbar-nav">
+    <a href="index.html">Home</a>
+    <a href="berita.html">Berita</a>
+    <a href="karya.html">Karya</a>
+    <a href="index.html#contact">Kontak</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-berita">
+  <div class="overlay">
+    <h1 id="judul"></h1>
+    <p id="breadcrumb">Home > Karya</p>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info-berita">
+  <p><b>Tanggal:</b> <span id="tanggal"></span></p>
+  <p><b>Kategori:</b> <span id="kategori"></span></p>
+</section>
+
+<!-- ISI -->
+<section class="detail-berita">
+  <img id="gambar">
+  <div id="isi"></div>
+</section>
+
+<div class="back-button">
+  <button onclick="history.back()">← Kembali</button>
+</div>
+
+<!-- 🔥 KARYA LAINNYA -->
+<section class="berita-lain">
+  <h2>Karya Terbaru</h2>
+
+  <div class="slider">
+    <div class="slide-track" id="karyaSlider"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 SMAN 1 Krembung Jurnalistik</p>
+</footer>
+
+<script>
+feather.replace();
+</script>
+
+<!-- HAMBURGER -->
+<script>
+const menu = document.querySelector('#hamburger-menu');
+const nav = document.querySelector('.navbar-nav');
+
+menu.onclick = () => {
+  nav.classList.toggle('active');
+};
+</script>
+
+<!-- 🔥 SCRIPT UTAMA -->
+<script>
+fetch('data/karya.json')
+  .then(res => res.json())
+  .then(data => {
+
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+
+    if (isNaN(id) || id < 0 || id >= data.length) {
+      document.body.innerHTML = "<h2>Karya tidak ditemukan</h2>";
+      return;
+    }
+
+    const karya = data[id];
+
+    // isi
+    document.getElementById("judul").innerText = karya.judul;
+    document.getElementById("tanggal").innerText = karya.tanggal;
+    document.getElementById("kategori").innerText = karya.kategori;
+    document.getElementById("gambar").src = karya.gambar;
+    document.getElementById("breadcrumb").innerText = "Home > Karya > " + karya.judul;
+
+    document.getElementById("isi").innerHTML = karya.isi;
+
+    // 🔥 slider karya lain
+    const container = document.getElementById("karyaSlider");
+
+    function card(item){
+      return `
+        <a href="detail-karya.html?id=${item.id}" class="card-link">
+          <div class="card">
+            <img src="${item.gambar}">
+            <h3>${item.judul}</h3>
+            <p>${item.deskripsi}</p>
+          </div>
+        </a>
+      `;
+    }
+
+    let html = "";
+    data.forEach(item => html += card(item));
+    data.forEach(item => html += card(item)); // infinite
+
+    container.innerHTML = html;
+  });
+</script>
+
+<!-- DRAG SLIDER -->
+<script>
+const track = document.querySelector('#karyaSlider');
+
+let isDown = false;
+let startX;
+let scrollLeft;
+
+track.addEventListener('mousedown', (e) => {
+  isDown = true;
+  startX = e.pageX - track.offsetLeft;
+  scrollLeft = track.scrollLeft;
+});
+
+track.addEventListener('mouseup', () => isDown = false);
+track.addEventListener('mouseleave', () => isDown = false);
+
+track.addEventListener('mousemove', (e) => {
+  if(!isDown) return;
+  e.preventDefault();
+  const x = e.pageX - track.offsetLeft;
+  const walk = (x - startX) * 2;
+  track.scrollLeft = scrollLeft - walk;
+});
+
+/* TOUCH */
+track.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].pageX;
+  scrollLeft = track.scrollLeft;
+});
+
+track.addEventListener('touchmove', (e) => {
+  const x = e.touches[0].pageX;
+  const walk = (x - startX) * 2;
+  track.scrollLeft = scrollLeft - walk;
+});
+</script>
+
+</body>
+</html>

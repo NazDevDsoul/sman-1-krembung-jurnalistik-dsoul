@@ -3,32 +3,36 @@
     "judul": "Workshop Jurnalistik",
     "deskripsi": "Pelatihan jurnalistik untuk siswa di aula sekolah.",
     "gambar": "img/berita1.jpg",
-    "tanggal": "29 April 2026",
+    "tanggal": "2026-04-29",
     "kategori": "berita",
-    "link": "berita1.html"
+    "link": "detail-berita.html?id=0",
+    "isi": "<p>SMAN 1 Krembung mengadakan workshop jurnalistik untuk meningkatkan kemampuan siswa dalam menulis dan menyampaikan informasi secara profesional.</p><p>Kegiatan ini diikuti oleh siswa dari berbagai kelas dan dibimbing oleh narasumber berpengalaman di bidang media dan komunikasi.</p><p>Diharapkan melalui kegiatan ini, siswa mampu mengembangkan kemampuan berpikir kritis dan kreatif dalam dunia jurnalistik.</p>"
   },
   {
     "judul": "Ekstra Jurnalistik",
-    "deskripsi": "Pelatihan jurnalistik untuk siswa di aula sekolah.",
+    "deskripsi": "Kegiatan ekstra jurnalistik rutin setiap minggu.",
     "gambar": "img/berita1.jpg",
-    "tanggal": "29 April 2026",
+    "tanggal": "2026-04-28",
     "kategori": "berita",
-    "link": "berita1.html"
+    "link": "detail-berita.html?id=1",
+    "isi": "<p>Ekstra jurnalistik rutin dilaksanakan setiap minggu sebagai wadah bagi siswa untuk belajar menulis berita, membuat konten, dan melatih public speaking.</p><p>Melalui kegiatan ini, siswa juga belajar kerja sama tim dan tanggung jawab dalam produksi media sekolah.</p>"
   },
   {
     "judul": "Video Event Sekolah",
     "deskripsi": "Dokumentasi kegiatan sekolah yang meriah.",
     "gambar": "img/video1.jpg",
-    "tanggal": "25 April 2026",
+    "tanggal": "2026-04-25",
     "kategori": "video",
-    "link": "video1.html"
+    "link": "detail-berita.html?id=2",
+    "isi": "<p>Dokumentasi video kegiatan sekolah ini menampilkan momen-momen penting yang terjadi selama acara berlangsung.</p><p>Video tersebut menjadi arsip digital sekaligus media publikasi untuk sekolah.</p>"
   },
   {
     "judul": "Wawancara Ketua OSIS",
     "deskripsi": "Diskusi santai tentang program kerja OSIS.",
     "gambar": "img/wawancara1.jpg",
-    "tanggal": "20 April 2026",
+    "tanggal": "2026-04-20",
     "kategori": "wawancara",
-    "link": "wawancara1.html"
+    "link": "detail-berita.html?id=3",
+    "isi": "<p>Wawancara dengan Ketua OSIS membahas program kerja, harapan, dan kolaborasi dengan tim jurnalistik sekolah.</p><p>Diskusi ini memberi gambaran tentang peran OSIS dalam mendukung kegiatan siswa.</p>"
   }
 ]

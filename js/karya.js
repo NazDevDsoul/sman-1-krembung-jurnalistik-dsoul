@@ -1,15 +1,20 @@
 const container = document.getElementById("karyaContainer");
 const filterButtons = document.querySelectorAll(".filter button");
+const karyaSlider = document.getElementById("karyaSlider");
 
 let allData = [];
 
+/* ================= FETCH SEKALI ================= */
 fetch('data/karya.json')
   .then(res => res.json())
   .then(data => {
     allData = data;
+
     tampilkanData(data);
+    loadSlider(data);
   });
 
+/* ================= CARD ================= */
 function tampilkanData(data) {
   container.innerHTML = "";
 
@@ -30,6 +35,7 @@ function tampilkanData(data) {
   });
 }
 
+/* ================= FILTER ================= */
 filterButtons.forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelector(".filter .active").classList.remove("active");
@@ -45,7 +51,86 @@ filterButtons.forEach(btn => {
   });
 });
 
-/* ================= HAMBURGER FIX FINAL ================= */
+/* ================= HERO SLIDER ================= */
+function loadSlider(data) {
+  const heroData = data.slice(0, 5);
+
+  let html = "";
+
+  // 🔥 DUPLIKAT BIAR LOOP TERASA PANJANG
+  heroData.forEach(item => {
+    html += `
+      <div class="karya-slide">
+        <img src="${item.gambar}">
+      </div>
+    `;
+  });
+
+  heroData.forEach(item => {
+    html += `
+      <div class="karya-slide">
+        <img src="${item.gambar}">
+      </div>
+    `;
+  });
+
+  karyaSlider.innerHTML = html;
+
+  startKaryaSlider();
+  enableDrag();
+}
+
+let karyaIndex = 0;
+
+function startKaryaSlider() {
+  const slides = document.querySelectorAll(".karya-slide");
+
+  setInterval(() => {
+    karyaIndex++;
+    if (karyaIndex >= slides.length / 2) karyaIndex = 0;
+
+    karyaSlider.style.transition = "0.8s ease";
+    karyaSlider.style.transform = `translateX(-${karyaIndex * 100}%)`;
+  }, 4000);
+}
+
+/* ================= DRAG SLIDER ================= */
+function enableDrag() {
+  let isDown = false;
+  let startX;
+  let scrollLeft;
+
+  karyaSlider.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX;
+    scrollLeft = karyaIndex;
+  });
+
+  karyaSlider.addEventListener("mouseup", () => isDown = false);
+  karyaSlider.addEventListener("mouseleave", () => isDown = false);
+
+  karyaSlider.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+
+    const walk = (e.pageX - startX) / 100;
+    karyaSlider.style.transform =
+      `translateX(-${(scrollLeft - walk) * 100}%)`;
+  });
+
+  /* TOUCH */
+  karyaSlider.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].pageX;
+    scrollLeft = karyaIndex;
+  });
+
+  karyaSlider.addEventListener("touchmove", (e) => {
+    const walk = (e.touches[0].pageX - startX) / 100;
+    karyaSlider.style.transform =
+      `translateX(-${(scrollLeft - walk) * 100}%)`;
+  });
+}
+
+/* ================= HAMBURGER ================= */
 document.addEventListener("DOMContentLoaded", function () {
   const hamburger = document.getElementById("hamburger-menu");
   const navMenu = document.querySelector(".navbar-nav");
@@ -58,7 +143,6 @@ document.addEventListener("DOMContentLoaded", function () {
       navMenu.classList.toggle("active");
     });
 
-    // klik luar = nutup
     document.addEventListener("click", function (e) {
       if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
         navMenu.classList.remove("active");
@@ -67,37 +151,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
   }
 });
-
-/* ================= HERO KARYA AUTO SLIDER ================= */
-const karyaSlider = document.getElementById("karyaSlider");
-
-fetch('data/karya.json')
-  .then(res => res.json())
-  .then(data => {
-
-    const heroData = data.slice(0, 5);
-
-    heroData.forEach(item => {
-      const slide = `
-        <div class="karya-slide">
-          <img src="${item.gambar}">
-        </div>
-      `;
-      karyaSlider.innerHTML += slide;
-    });
-
-    startKaryaSlider();
-  });
-
-let karyaIndex = 0;
-
-function startKaryaSlider() {
-  const slides = document.querySelectorAll(".karya-slide");
-
-  setInterval(() => {
-    karyaIndex++;
-    if (karyaIndex >= slides.length) karyaIndex = 0;
-
-    karyaSlider.style.transform = `translateX(-${karyaIndex * 100}%)`;
-  }, 4000);
-}

@@ -1,23 +1,32 @@
 [
   {
+    "id": 0,
     "judul": "Fotografi Sekolah",
     "deskripsi": "Hasil foto kegiatan sekolah",
     "gambar": "img/berita1.jpg",
     "kategori": "foto",
-    "link": "#"
+    "tanggal": "2026-04-29",
+    "link": "detail-karya.html?id=0",
+    "isi": "<img src='img/berita1.jpg'><p>Koleksi foto kegiatan sekolah.</p>"
   },
   {
+    "id": 1,
     "judul": "Video Dokumenter",
     "deskripsi": "Dokumentasi kegiatan siswa",
     "gambar": "img/karya2.jpg",
     "kategori": "video",
-    "link": "#"
+    "tanggal": "2026-04-28",
+    "link": "detail-karya.html?id=1",
+    "isi": "<iframe width='100%' height='400' src='https://www.youtube.com/embed/dQw4w9WgXcQ' frameborder='0' allowfullscreen></iframe>"
   },
   {
+    "id": 2,
     "judul": "Artikel Opini",
     "deskripsi": "Tulisan opini siswa",
     "gambar": "img/karya3.jpg",
     "kategori": "artikel",
-    "link": "#"
+    "tanggal": "2026-04-27",
+    "link": "detail-karya.html?id=2",
+    "isi": "<p>Ini adalah artikel opini siswa tentang pendidikan...</p>"
   }
 ]

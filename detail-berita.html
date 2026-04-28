@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Detail Berita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">    
+  <div class="brand">
+    <img src="img/logodsoul.png" class="logo">
+    <a href="index.html" class="navbar-logo">
+      sman1krembung<span>jurnalistik</span>.
+    </a>
+  </div>
+
+  <div class="navbar-nav">
+    <a href="index.html#home">Home</a>
+    <a href="index.html#about">Tentang Kami</a>
+    <a href="index.html#Menu">Berita</a>
+    <a href="index.html#contact">Kontak</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-berita">
+  <div class="overlay">
+    <h1 id="judul"></h1>
+    <p id="breadcrumb">Home > Berita</p>
+  </div>
+</section>
+
+<!-- INFO -->
+<section class="info-berita">
+  <p><b>Dipublikasikan:</b> <span id="tanggal"></span></p>
+  <p><b>Penulis:</b> Tim Jurnalistik</p>
+</section>
+
+<!-- ISI -->
+<section class="detail-berita">
+  <img id="gambar" alt="">
+  <div id="isi"></div>
+</section>
+
+<div class="back-button">
+  <button onclick="history.back()">← Kembali</button>
+</div>
+
+<!-- BERITA LAINNYA -->
+<section class="berita-lain">
+  <h2>Berita Terbaru</h2>
+
+  <div class="slider">
+    <div class="slide-track" id="beritaSlider"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>© 2026 SMAN 1 Krembung Jurnalistik</p>
+</footer>
+
+<!-- ICON -->
+<script>
+  feather.replace();
+</script>
+
+<!-- HAMBURGER -->
+<script>
+const menu = document.querySelector('#hamburger-menu');
+const nav = document.querySelector('.navbar-nav');
+
+menu.onclick = (e) => {
+  e.preventDefault();
+  nav.classList.toggle('active');
+};
+</script>
+
+<!-- DATA BERITA -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const params = new URLSearchParams(window.location.search);
+  const id = parseInt(params.get("id"), 10);
+
+  fetch("data/berita.json")
+    .then(res => {
+      if (!res.ok) {
+        throw new Error("Gagal memuat data berita.json");
+      }
+      return res.json();
+    })
+    .then(data => {
+      if (isNaN(id) || id < 0 || id >= data.length) {
+        document.body.innerHTML = "<h2 style='text-align:center; padding: 2rem;'>Berita tidak ditemukan</h2>";
+        return;
+      }
+
+      const berita = data[id];
+
+      document.getElementById("judul").innerText = berita.judul;
+      document.getElementById("tanggal").innerText = berita.tanggal;
+      document.getElementById("gambar").src = berita.gambar;
+      document.getElementById("gambar").alt = berita.judul;
+      document.getElementById("breadcrumb").innerText = "Home > Berita > " + berita.judul;
+      document.getElementById("isi").innerHTML = berita.isi;
+
+      renderBeritaLainnya(data, id);
+      enableDrag(document.getElementById("beritaSlider"));
+    })
+    .catch(err => {
+      console.error(err);
+      document.body.innerHTML = "<h2 style='text-align:center; padding: 2rem;'>Berita tidak ditemukan</h2>";
+    });
+
+  function renderBeritaLainnya(data, currentId) {
+    const container = document.getElementById("beritaSlider");
+
+    const list = data.filter((_, index) => index !== currentId);
+
+    function createCard(item, index) {
+      return `
+        <a href="detail-berita.html?id=${index}" class="card-link">
+          <div class="card">
+            <img src="${item.gambar}" alt="${item.judul}">
+            <h3>${item.judul}</h3>
+            <p>${item.deskripsi}</p>
+          </div>
+        </a>
+      `;
+    }
+
+    let html = "";
+    list.forEach((item) => {
+      const originalIndex = data.findIndex(d => d.judul === item.judul && d.tanggal === item.tanggal);
+      html += createCard(item, originalIndex);
+    });
+
+    list.forEach((item) => {
+      const originalIndex = data.findIndex(d => d.judul === item.judul && d.tanggal === item.tanggal);
+      html += createCard(item, originalIndex);
+    });
+
+    container.innerHTML = html;
+  }
+
+  function enableDrag(track) {
+    if (!track) return;
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    track.addEventListener("mousedown", (e) => {
+      isDown = true;
+      startX = e.pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    });
+
+    track.addEventListener("mouseleave", () => {
+      isDown = false;
+    });
+
+    track.addEventListener("mouseup", () => {
+      isDown = false;
+    });
+
+    track.addEventListener("mousemove", (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - track.offsetLeft;
+      const walk = (x - startX) * 2;
+      track.scrollLeft = scrollLeft - walk;
+    });
+
+    track.addEventListener("touchstart", (e) => {
+      isDown = true;
+      startX = e.touches[0].pageX - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    }, { passive: true });
+
+    track.addEventListener("touchend", () => {
+      isDown = false;
+    });
+
+    track.addEventListener("touchmove", (e) => {
+      if (!isDown) return;
+      const x = e.touches[0].pageX - track.offsetLeft;
+      const walk = (x - startX) * 2;
+      track.scrollLeft = scrollLeft - walk;
+    }, { passive: true });
+  }
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+{
+  "stats": [
+    { "label": "Anggota", "value": 25 },
+    { "label": "Prestasi", "value": 12 },
+    { "label": "Karya", "value": 30 }
+  ],
+
+  "ketua": [
+    { "nama": "Ahmad", "role": "Ketua", "foto": "img/user1.jpg" },
+    { "nama": "Siti", "role": "Wakil", "foto": "img/user2.jpg" }
+  ],
+
+  "sekretaris": [
+    { "nama": "Budi", "role": "Sekretaris 1", "foto": "img/user3.jpg" },
+    { "nama": "Ani", "role": "Sekretaris 2", "foto": "img/user4.jpg" }
+  ],
+
+  "bendahara": [
+    { "nama": "Dina", "role": "Bendahara 1", "foto": "img/user5.jpg" },
+    { "nama": "Rizky", "role": "Bendahara 2", "foto": "img/user6.jpg" }
+  ],
+
+  "koordinator": [
+    { "nama": "Kamu ", "role": "Developer", "foto": "img/user7.jpg" },
+    { "nama": "Lainnya", "role": "Koordivisi", "foto": "img/user8.jpg" }
+  ],
+
+  "member": [
+    { "nama": "Member 1", "role": "Anggota", "foto": "img/user1.jpg" },
+    { "nama": "Member 2", "role": "Anggota", "foto": "img/user2.jpg" },
+    { "nama": "Member 3", "role": "Anggota", "foto": "img/user3.jpg" }
+  ]
+}
