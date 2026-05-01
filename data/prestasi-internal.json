@@ -1,0 +1,20 @@
+[
+  {
+    "id": "pi1",
+    "judul": "Juara 1 Lomba Jurnalistik Internal",
+    "deskripsi": "Tingkat sekolah",
+    "gambar": "img/berita1.jpg",
+    "kategori": "lomba",
+    "tanggal": "2026-04-30",
+    "isi": "<p>Prestasi internal pertama tim jurnalistik.</p>"
+  },
+  {
+    "id": "pi2",
+    "judul": "Juara 2 Fotografi Internal",
+    "deskripsi": "Kegiatan sekolah",
+    "gambar": "img/berita2.jpg",
+    "kategori": "sekolah",
+    "tanggal": "2026-04-28",
+    "isi": "<p>Prestasi internal bidang fotografi.</p>"
+  }
+]

@@ -1,12 +1,11 @@
 [
   {
+    "id": 1,
     "judul": "Juara 1 Lomba Jurnalistik",
-    "deskripsi": "Tingkat Kabupaten Sidoarjo",
-    "gambar": "img/prestasi1.jpg"
-  },
-  {
-    "judul": "Juara 2 Artikel News",
-    "deskripsi": "Lomba antar sekolah",
-    "gambar": "img/prestasi2.jpg"
+    "deskripsi": "Tingkat Kabupaten",
+    "isi": "Tim jurnalistik berhasil meraih juara 1 dalam lomba tingkat kabupaten...",
+    "gambar": "img/prestasi1.jpg",
+    "kategori": "lomba",
+    "tanggal": "2026-04-30"
   }
 ]

@@ -7,12 +7,49 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      gap: 12px;
+      color: #0a3646;
+    }
+
+    .spinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid rgba(10, 54, 70, 0.15);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.35s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">    
+<nav class="navbar">
   <div class="brand">
     <img src="img/logodsoul.png" class="logo">
     <a href="index.html" class="navbar-logo">
@@ -32,174 +69,203 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero-berita">
-  <div class="overlay">
-    <h1 id="judul"></h1>
-    <p id="breadcrumb">Home > Berita</p>
-  </div>
-</section>
-
-<!-- INFO -->
-<section class="info-berita">
-  <p><b>Dipublikasikan:</b> <span id="tanggal"></span></p>
-  <p><b>Penulis:</b> Tim Jurnalistik</p>
-</section>
-
-<!-- ISI -->
-<section class="detail-berita">
-  <img id="gambar" alt="">
-  <div id="isi"></div>
-</section>
-
-<div class="back-button">
-  <button onclick="history.back()">← Kembali</button>
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <p>Memuat berita...</p>
 </div>
 
-<!-- BERITA LAINNYA -->
-<section class="berita-lain">
-  <h2>Berita Terbaru</h2>
+<div id="content" class="detail-hidden">
+  <section class="hero-berita">
+    <div class="overlay">
+      <h1 id="judul"></h1>
+      <p id="breadcrumb">Home > Berita</p>
+    </div>
+  </section>
 
-  <div class="slider">
-    <div class="slide-track" id="beritaSlider"></div>
+  <section class="info-berita">
+    <p><b>Dipublikasikan:</b> <span id="tanggal"></span></p>
+    <p><b>Penulis:</b> <span id="penulis"></span></p>
+  </section>
+
+  <section class="detail-berita fade-in">
+    <img id="gambar" alt="">
+    <div id="isi"></div>
+  </section>
+
+  <div class="back-button">
+    <button onclick="history.back()">← Kembali</button>
   </div>
-</section>
 
-<!-- FOOTER -->
+  <section class="berita-lain">
+    <h2>Berita Terbaru</h2>
+    <div class="slider">
+      <div class="slide-track" id="beritaSlider"></div>
+    </div>
+  </section>
+</div>
+
 <footer class="footer">
   <p>© 2026 SMAN 1 Krembung Jurnalistik</p>
 </footer>
 
-<!-- ICON -->
 <script>
   feather.replace();
-</script>
 
-<!-- HAMBURGER -->
-<script>
-const menu = document.querySelector('#hamburger-menu');
-const nav = document.querySelector('.navbar-nav');
+  const menu = document.querySelector('#hamburger-menu');
+  const nav = document.querySelector('.navbar-nav');
 
-menu.onclick = (e) => {
-  e.preventDefault();
-  nav.classList.toggle('active');
-};
-</script>
+  if (menu && nav) {
+    menu.onclick = (e) => {
+      e.preventDefault();
+      nav.classList.toggle('active');
+    };
+  }
 
-<!-- DATA BERITA -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const params = new URLSearchParams(window.location.search);
-  const id = parseInt(params.get("id"), 10);
+  document.addEventListener("DOMContentLoaded", () => {
+    const API = "https://script.google.com/macros/s/AKfycbyw221VQqj3ql5INNphqZfSfDtpkrFt2xcJTSlgxu7AknNu81KAwyHx5hMyvSC6Px5Z/exec?type=berita&nocache=" + Date.now();
+    const CACHE_KEY = "berita_cache_v1";
+    const CACHE_TTL = 5 * 60 * 1000;
 
-  fetch("data/berita.json")
-    .then(res => {
-      if (!res.ok) {
-        throw new Error("Gagal memuat data berita.json");
+    const loading = document.getElementById("loading");
+    const content = document.getElementById("content");
+
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    function readCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.time || !Array.isArray(parsed.data)) return null;
+        if (Date.now() - parsed.time > CACHE_TTL) return null;
+        return parsed.data;
+      } catch {
+        return null;
       }
-      return res.json();
-    })
-    .then(data => {
-      if (isNaN(id) || id < 0 || id >= data.length) {
-        document.body.innerHTML = "<h2 style='text-align:center; padding: 2rem;'>Berita tidak ditemukan</h2>";
-        return;
-      }
-
-      const berita = data[id];
-
-      document.getElementById("judul").innerText = berita.judul;
-      document.getElementById("tanggal").innerText = berita.tanggal;
-      document.getElementById("gambar").src = berita.gambar;
-      document.getElementById("gambar").alt = berita.judul;
-      document.getElementById("breadcrumb").innerText = "Home > Berita > " + berita.judul;
-      document.getElementById("isi").innerHTML = berita.isi;
-
-      renderBeritaLainnya(data, id);
-      enableDrag(document.getElementById("beritaSlider"));
-    })
-    .catch(err => {
-      console.error(err);
-      document.body.innerHTML = "<h2 style='text-align:center; padding: 2rem;'>Berita tidak ditemukan</h2>";
-    });
-
-  function renderBeritaLainnya(data, currentId) {
-    const container = document.getElementById("beritaSlider");
-
-    const list = data.filter((_, index) => index !== currentId);
-
-    function createCard(item, index) {
-      return `
-        <a href="detail-berita.html?id=${index}" class="card-link">
-          <div class="card">
-            <img src="${item.gambar}" alt="${item.judul}">
-            <h3>${item.judul}</h3>
-            <p>${item.deskripsi}</p>
-          </div>
-        </a>
-      `;
     }
 
-    let html = "";
-    list.forEach((item) => {
-      const originalIndex = data.findIndex(d => d.judul === item.judul && d.tanggal === item.tanggal);
-      html += createCard(item, originalIndex);
-    });
+    function setLoading(text) {
+      loading.innerHTML = `
+        <div class="spinner"></div>
+        <p>${text}</p>
+      `;
+      loading.style.display = "flex";
+    }
 
-    list.forEach((item) => {
-      const originalIndex = data.findIndex(d => d.judul === item.judul && d.tanggal === item.tanggal);
-      html += createCard(item, originalIndex);
-    });
+    function showContent() {
+      loading.style.display = "none";
+      content.classList.remove("detail-hidden");
+      content.style.display = "block";
+    }
 
-    container.innerHTML = html;
-  }
+    function renderDetail(data) {
+      const berita = data.find(item => String(item.id) === String(id));
 
-  function enableDrag(track) {
-    if (!track) return;
+      if (!berita) {
+        loading.innerHTML = "<p>Berita tidak ditemukan 😢</p>";
+        return false;
+      }
 
-    let isDown = false;
-    let startX = 0;
-    let scrollLeft = 0;
+      document.getElementById("judul").innerText = berita.judul || "";
+      document.getElementById("tanggal").innerText = berita.tanggal || "";
+      document.getElementById("penulis").innerText = berita.penulis || "Tim Jurnalistik";
+      document.getElementById("gambar").src = berita.gambar || "img/default.jpg";
+      document.getElementById("gambar").alt = berita.judul || "";
+      document.getElementById("isi").innerHTML = berita.isi || "";
+      document.getElementById("breadcrumb").innerText = "Home > Berita > " + (berita.judul || "");
 
-    track.addEventListener("mousedown", (e) => {
-      isDown = true;
-      startX = e.pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
-    });
+      const other = data.filter(item => String(item.id) !== String(id));
+      const slider = document.getElementById("beritaSlider");
 
-    track.addEventListener("mouseleave", () => {
-      isDown = false;
-    });
+      slider.innerHTML = [...other, ...other].map(item => `
+        <a href="detail-berita.html?id=${encodeURIComponent(item.id)}" class="card-link">
+          <div class="card">
+            <img src="${item.gambar || 'img/default.jpg'}" alt="${item.judul}" onerror="this.src='img/default.jpg'">
+            <h3>${item.judul || ""}</h3>
+            <p>${item.deskripsi || ""}</p>
+          </div>
+        </a>
+      `).join("");
 
-    track.addEventListener("mouseup", () => {
-      isDown = false;
-    });
+      enableDrag(slider);
+      return true;
+    }
 
-    track.addEventListener("mousemove", (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - track.offsetLeft;
-      const walk = (x - startX) * 2;
-      track.scrollLeft = scrollLeft - walk;
-    });
+    function enableDrag(track) {
+      if (!track) return;
 
-    track.addEventListener("touchstart", (e) => {
-      isDown = true;
-      startX = e.touches[0].pageX - track.offsetLeft;
-      scrollLeft = track.scrollLeft;
-    }, { passive: true });
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
 
-    track.addEventListener("touchend", () => {
-      isDown = false;
-    });
+      track.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
 
-    track.addEventListener("touchmove", (e) => {
-      if (!isDown) return;
-      const x = e.touches[0].pageX - track.offsetLeft;
-      const walk = (x - startX) * 2;
-      track.scrollLeft = scrollLeft - walk;
-    }, { passive: true });
-  }
-});
+      track.addEventListener("mouseleave", () => { isDown = false; });
+      track.addEventListener("mouseup", () => { isDown = false; });
+
+      track.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      track.addEventListener("touchstart", (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      }, { passive: true });
+
+      track.addEventListener("touchend", () => { isDown = false; });
+
+      track.addEventListener("touchmove", (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+      }, { passive: true });
+    }
+
+    const cached = readCache();
+
+    if (cached && renderDetail(cached)) {
+      showContent();
+    } else {
+      setLoading("Memuat berita...");
+    }
+
+    fetch(API, { cache: "no-store" })
+      .then(res => {
+        if (!res.ok) throw new Error("Gagal memuat data");
+        return res.json();
+      })
+      .then(data => {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          time: Date.now(),
+          data
+        }));
+
+        if (renderDetail(data)) {
+          showContent();
+        } else {
+          loading.innerHTML = "<p>Berita tidak ditemukan 😢</p>";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        if (cached && renderDetail(cached)) {
+          showContent();
+        } else {
+          loading.innerHTML = "<p>Gagal memuat berita 😢</p>";
+        }
+      });
+  });
 </script>
 
 </body>

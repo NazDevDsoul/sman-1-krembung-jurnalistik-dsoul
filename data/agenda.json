@@ -1,4 +1,15 @@
 [
+   {
+    "judul": "Hari test",
+    "subjudul": "Lomba",
+    "tanggal": "2026-05-29",
+    "waktu": "07:00 - 12:00",
+    "dresscode": "Baju Adat",
+    "kegiatan": "Lomba Siswa",
+    "deskripsi": "lomba siswa antar kelas",
+    "gambar": "img/berita1.jpg",
+    "link": "https://drive.google.com/"
+  },
   {
     "judul": "Hari pendidikan Nasional",
     "subjudul": "Lomba",

@@ -1,73 +1,55 @@
-// ================== FETCH DATA UTAMA ==================
-fetch('data/tentang.json')
-  .then(res => res.json())
-  .then(data => {
+const container = document.getElementById("teamContainer");
 
-    document.getElementById("judul").innerText = data.judul;
-    document.getElementById("tagline").innerText = data.tagline;
-    document.getElementById("deskripsi").innerText = data.deskripsi;
-    document.getElementById("visi").innerText = data.visi;
+function asArray(value) {
+  return Array.isArray(value) ? value : [];
+}
 
-    // misi
-    const misiContainer = document.getElementById("misi");
-    data.misi.forEach(item => {
-      misiContainer.innerHTML += `<li>${item}</li>`;
+fetch("data/organisasi.json")
+  .then((res) => {
+    if (!res.ok) throw new Error("Gagal memuat data/organisasi.json");
+    return res.json();
+  })
+  .then((data) => {
+    const all = [
+      ...asArray(data.ketua),
+      ...asArray(data.sekretaris),
+      ...asArray(data.bendahara),
+      ...asArray(data.koordinator),
+      ...asArray(data.anggota)
+    ];
+
+    const seen = new Set();
+    const unique = [];
+
+    all.forEach((item) => {
+      const key = item.id ? String(item.id).trim() : String(item.nama || "").trim().toLowerCase();
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(item);
+      }
     });
 
-    // link daftar
-    document.getElementById("linkDaftar").href = data.linkDaftar;
+    renderMembers(unique);
+  })
+  .catch(() => {
+    if (container) {
+      container.innerHTML = `<div class="team-empty">Data tim belum tersedia.</div>`;
+    }
   });
 
+function renderMembers(data) {
+  if (!container) return;
 
-// ================== KEGIATAN ==================
-fetch('data/kegiatan.json')
-  .then(res => res.json())
-  .then(data => {
-
-    const container = document.getElementById("kegiatanContainer");
-
-    data.forEach(item => {
-      container.innerHTML += `
-        <div class="card">
-          <img src="${item.gambar}">
-          <h3>${item.judul}</h3>
-          <p>${item.deskripsi}</p>
-        </div>
-      `;
-    });
-
-  });
-
-
-// ================== TIM ==================
-fetch('data/tim.json')
-  .then(res => res.json())
-  .then(data => {
-
-    const container = document.getElementById("timContainer");
-
-    data.forEach(item => {
-      container.innerHTML += `
-        <div class="card">
-          <img src="${item.foto}">
-          <h3>${item.nama}</h3>
-          <p>${item.jabatan}</p>
-        </div>
-      `;
-    });
-
-  });
-
-
-// ================== HAMBURGER ==================
-document.addEventListener("DOMContentLoaded", function () {
-  const hamburger = document.getElementById("hamburger-menu");
-  const navMenu = document.querySelector(".navbar-nav");
-
-  if (hamburger && navMenu) {
-    hamburger.addEventListener("click", function (e) {
-      e.preventDefault();
-      navMenu.classList.toggle("active");
-    });
-  }
-});
+  container.innerHTML = data.map((item) => `
+    <div class="team-card">
+      <div class="team-photo-wrap">
+        <img src="${item.foto || 'img/logodsoul.png'}" alt="${item.nama || ''}">
+      </div>
+      <div class="team-body">
+        <span class="team-role">${item.role || item.jabatan || 'Anggota'}</span>
+        <h3>${item.nama || '-'}</h3>
+        <p>${item.catatan || ''}</p>
+      </div>
+    </div>
+  `).join("");
+}

@@ -1,6 +1,6 @@
-const container = document.getElementById("karyaContainer");
+const container = document.getElementById("karyaInternalContainer");
 const buttons = document.querySelectorAll(".filter button");
-const heroSlider = document.getElementById("karyaSlider");
+const heroSlider = document.getElementById("karyaInternalSlider");
 
 let allData = [];
 
@@ -13,11 +13,8 @@ function safeFetchJSON(path) {
     .catch(() => []);
 }
 
-Promise.all([
-  safeFetchJSON("data/karya.json"),
-  safeFetchJSON("data/karya-internal.json")
-]).then(([umum, internal]) => {
-  allData = [...umum, ...internal].sort((a, b) => {
+safeFetchJSON("data/karya-internal.json").then(data => {
+  allData = [...data].sort((a, b) => {
     const da = new Date(a.tanggal || "1970-01-01");
     const db = new Date(b.tanggal || "1970-01-01");
     return db - da;
@@ -33,32 +30,37 @@ function tampilkan(data) {
   container.innerHTML = "";
 
   data.forEach(item => {
-    const href = item.link || "#";
-    const target = href.startsWith("http") ? "_blank" : "_self";
+    const card = document.createElement("div");
+    card.className = "karya-card";
 
-    const card = `
-      <a href="${href}" target="${target}" class="karya-card">
-        <div class="karya-img">
-          <img src="${item.gambar}" alt="${item.judul}">
-          <span class="karya-badge">${item.kategori || "karya"}</span>
-        </div>
-        <div class="karya-body">
-          <h3>${item.judul}</h3>
-          <p>${item.deskripsi}</p>
-          <small>${item.tanggal || item.tahun || ""}</small>
-        </div>
-      </a>
+    card.innerHTML = `
+      <div class="karya-img">
+        <img src="${item.gambar}" alt="${item.judul}">
+        <span class="karya-badge">${item.kategori || "karya"}</span>
+      </div>
+      <div class="karya-body">
+        <h3>${item.judul}</h3>
+        <p>${item.deskripsi}</p>
+        <small>${item.tanggal || ""}</small>
+      </div>
     `;
-    container.innerHTML += card;
+
+    card.addEventListener("click", () => {
+      window.location.href = `detail-karya-internal.html?id=${encodeURIComponent(item.id)}`;
+    });
+
+    container.appendChild(card);
   });
 }
 
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
-    document.querySelector(".filter .active").classList.remove("active");
+    const active = document.querySelector(".filter .active");
+    if (active) active.classList.remove("active");
     btn.classList.add("active");
 
     const filter = btn.dataset.filter;
+
     if (filter === "all") {
       tampilkan(allData);
     } else {

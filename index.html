@@ -61,7 +61,7 @@
       <div class="hero-left">
         <h1>Mari Nikmati SMAN 1 Krembung <span>Jurnalistik</span></h1>
         <p>Media informasi, karya, dan kreativitas siswa.</p>
-        <a href="#" class="cta">Baca Sekarang</a>
+        <a href="informasi.html" class="cta">Informasi Sekolah</a>
       </div>
 
       <!-- RIGHT (AGENDA AUTO) -->
@@ -76,13 +76,14 @@
     <div class="hero-cards">
 
       <!-- INFORMASI -->
-      <a href="informasi.html" class="hero-card">
-        <img src="img/berita1.jpg">
-        <div class="hero-card-content">
-          <h4>Informasi Sekolah</h4>
-          <p>Pengumuman dan kegiatan sekolah terbaru.</p>
-        </div>
-      </a>
+      <a href="prestasi.html" class="hero-card" id="cardPrestasiSekolah">
+  <img id="imgPrestasiSekolah">
+  <div class="hero-card-content">
+    <h4 id="judulPrestasiSekolah"></h4>
+    <p id="descPrestasiSekolah"></p>
+    <span class="hero-card-date" id="datePrestasiSekolah"></span>
+  </div>
+  </a>
 
       <!-- BERITA -->
       <a href="berita.html" class="hero-card" id="cardBerita">
@@ -124,24 +125,25 @@
 </section>
     <!-- Menu section end-->
 
-    <section id="about" class="about">
+   <section id="about" class="about">
   <h2><span>Tentang</span> Kami</h2>
 
   <div class="about-wrapper">
 
-    <!-- KEGIATAN -->
+    <!-- PROFIL -->
     <a href="tentang-kami.html" class="about-card">
       <div class="about-icon">📌</div>
-      <h3>Kegiatan Kami</h3>
-      <p>Aktivitas jurnalistik, pelatihan, dan event sekolah.</p>
+      <h3>Profil Jurnalistik</h3>
+      <p>Mengenal visi, misi, dan kegiatan tim jurnalistik.</p>
     </a>
 
-    <!-- PRESTASI (DINAMIS) -->
-    <a href="prestasi.html" class="about-card dynamic-card" id="cardPrestasi">
+    <!-- PRESTASI INTERNAL (DINAMIS) -->
+    <a href="prestasi-internal.html" class="about-card dynamic-card internal" id="cardPrestasi">
       <img id="imgPrestasi">
+      <span class="badge internal">Internal</span>
       <div class="card-overlay">
         <div class="about-icon">🏆</div>
-        <h3 id="judulPrestasi"></h3>
+        <h3 id="judulPrestasi">Prestasi Tim</h3>
         <p id="descPrestasi"></p>
       </div>
     </a>
@@ -149,9 +151,10 @@
     <!-- KARYA INTERNAL (DINAMIS) -->
     <a href="karya-internal.html" class="about-card dynamic-card internal" id="cardKaryaInternal">
       <img id="imgKaryaInternal">
+      <span class="badge internal">Internal</span>
       <div class="card-overlay">
         <div class="about-icon">🔒</div>
-        <h3>Karya Kami</h3>
+        <h3>Karya Internal</h3>
         <p id="descKaryaInternal"></p>
       </div>
     </a>
@@ -168,25 +171,59 @@
 </section>
 
     <!-- ===================== -->
-     <!-- ================= ORGANISASI ================= -->
-<section class="org-section">
-
-  <!-- STATISTIK -->
-  <div class="org-stats" id="orgStats"></div>
-
-  <!-- STRUKTUR -->
-  <div class="org-grid">
-
-    <div class="org-card" id="sekretaris"></div>
-    <div class="org-card center" id="ketua"></div>
-    <div class="org-card" id="bendahara"></div>
-
-    <div class="org-card" id="koordinator"></div>
-    <div class="org-card" id="member"></div>
-
+    <!-- ================= ORGANISASI ================= -->
+<section class="org-section" id="organisasi">
+  <div class="org-head">
+    <h2>Portal <span>Jurnalistik</span></h2>
+    <p>Statistik singkat dan pintasan cepat ke halaman anggota, prestasi, karya, serta profil jurnalistik.</p>
   </div>
 
+  <div class="org-stats" id="orgStats"></div>
+
+  <div class="org-quick-grid">
+    <a href="struktur-organisasi.html" class="org-quick-card org-quick-card-main">
+      <div class="org-quick-top">
+        <span class="org-quick-tag">Anggota</span>
+        <i data-feather="users"></i>
+      </div>
+      <h3>Struktur Organisasi</h3>
+      <p>Daftar ketua, divisi, dan seluruh anggota tim.</p>
+      <span class="org-quick-link">Buka halaman <i data-feather="arrow-right"></i></span>
+    </a>
+
+    <a href="prestasi-internal.html" class="org-quick-card org-accent-blue">
+      <div class="org-quick-top">
+        <span class="org-quick-tag">Prestasi</span>
+        <i data-feather="award"></i>
+      </div>
+      <h3>Prestasi Internal</h3>
+      <p>Rekap prestasi dan pencapaian tim jurnalistik.</p>
+      <span class="org-quick-link">Lihat prestasi <i data-feather="arrow-right"></i></span>
+    </a>
+
+    <a href="karya-internal.html" class="org-quick-card org-accent-green">
+      <div class="org-quick-top">
+        <span class="org-quick-tag">Karya</span>
+        <i data-feather="layers"></i>
+      </div>
+      <h3>Karya Internal</h3>
+      <p>Dokumentasi karya, draft, dan proses kreatif tim.</p>
+      <span class="org-quick-link">Lihat karya <i data-feather="arrow-right"></i></span>
+    </a>
+
+    <a href="tentang-kami.html" class="org-quick-card org-accent-violet">
+      <div class="org-quick-top">
+        <span class="org-quick-tag">Profil</span>
+        <i data-feather="info"></i>
+      </div>
+      <h3>Tentang Kami</h3>
+      <p>Profil, visi, misi, dan kegiatan jurnalistik sekolah.</p>
+      <span class="org-quick-link">Buka profil <i data-feather="arrow-right"></i></span>
+    </a>
+  </div>
 </section>
+
+<script src="js/organisasi.js"></script>
 
 <!-- KONTAK & SOSIAL -->
 <!-- ===================== -->
@@ -355,14 +392,14 @@ let iBerita = 0;
 let iKarya = 0;
 
 /* BERITA */
-fetch('data/berita.json')
+fetch('https://script.google.com/macros/s/AKfycbyw221VQqj3ql5INNphqZfSfDtpkrFt2xcJTSlgxu7AknNu81KAwyHx5hMyvSC6Px5Z/exec?type=berita')
   .then(res => res.json())
   .then(data => {
     beritaData = data.slice(0,5);
     updateBerita();
     setInterval(nextBerita, 5000);
   });
-
+  
 function updateBerita() {
   const item = beritaData[iBerita];
   const card = document.getElementById("cardBerita");
@@ -576,6 +613,44 @@ function updateKaryaInternal() {
 function nextKaryaInternal() {
   iKaryaInternal = (iKaryaInternal + 1) % karyaInternalData.length;
   updateKaryaInternal();
+}
+</script>
+
+<script>
+let prestasiSekolahData = [];
+let iPrestasiSekolah = 0;
+
+fetch('data/prestasi.json')
+  .then(res => res.json())
+  .then(data => {
+    prestasiSekolahData = data.slice(0, 5);
+    updatePrestasiSekolah();
+    setInterval(nextPrestasiSekolah, 5000);
+  });
+
+function updatePrestasiSekolah() {
+  if (!prestasiSekolahData.length) return;
+
+  const item = prestasiSekolahData[iPrestasiSekolah];
+  const card = document.getElementById("cardPrestasiSekolah");
+
+  if (!card) return;
+
+  card.classList.add("fade-out");
+
+  setTimeout(() => {
+    document.getElementById("imgPrestasiSekolah").src = item.gambar;
+    document.getElementById("judulPrestasiSekolah").innerText = item.judul;
+    document.getElementById("descPrestasiSekolah").innerText = item.deskripsi;
+    document.getElementById("datePrestasiSekolah").innerText = item.tanggal || item.tahun || "";
+    card.classList.remove("fade-out");
+  }, 300);
+}
+
+function nextPrestasiSekolah() {
+  if (!prestasiSekolahData.length) return;
+  iPrestasiSekolah = (iPrestasiSekolah + 1) % prestasiSekolahData.length;
+  updatePrestasiSekolah();
 }
 </script>
   </body>

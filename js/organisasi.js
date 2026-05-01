@@ -1,60 +1,91 @@
-fetch('data/organisasi.json')
-  .then(res => res.json())
-  .then(data => {
+document.addEventListener("DOMContentLoaded", () => {
+  const statsContainer = document.getElementById("orgStats");
 
-    /* ================= STATS ================= */
-    const statsContainer = document.getElementById("orgStats");
+  if (!statsContainer) return;
 
-    data.stats.forEach(item => {
-      statsContainer.innerHTML += `
-        <div class="stat-card">
-          <h2>${item.value}</h2>
-          <p>${item.label}</p>
-        </div>
-      `;
+  const safeFetchJSON = (path) =>
+    fetch(path)
+      .then((res) => {
+        if (!res.ok) throw new Error(`Gagal memuat ${path}`);
+        return res.json();
+      })
+      .catch(() => null);
+
+  Promise.all([
+    safeFetchJSON("data/organisasi.json"),
+    safeFetchJSON("data/prestasi-internal.json"),
+    safeFetchJSON("data/karya-internal.json"),
+  ]).then(([orgData, prestasiInternal, karyaInternal]) => {
+    const anggotaCount = countUniqueMembers(orgData);
+    const prestasiCount = Array.isArray(prestasiInternal) ? prestasiInternal.length : 0;
+    const karyaCount = Array.isArray(karyaInternal) ? karyaInternal.length : 0;
+
+    renderStats([
+      { label: "Anggota Jurnalistik", value: anggotaCount },
+      { label: "Prestasi", value: prestasiCount },
+      { label: "Karya", value: karyaCount },
+    ]);
+  });
+
+  function normalizeText(text) {
+    return String(text || "")
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, " ");
+  }
+
+  function countUniqueMembers(orgData) {
+    if (!orgData || typeof orgData !== "object") return 0;
+
+    const groups = ["ketua", "sekretaris", "bendahara", "koordinator", "anggota"];
+    const unique = new Set();
+
+    groups.forEach((group) => {
+      const list = Array.isArray(orgData[group]) ? orgData[group] : [];
+
+      list.forEach((person) => {
+        if (!person) return;
+
+        const key = person.id
+          ? `id:${normalizeText(person.id)}`
+          : `nama:${normalizeText(person.nama || person.jabatan || "")}`;
+
+        unique.add(key);
+      });
     });
 
-    /* ================= FUNCTION CARD ================= */
-    function createSlider(id, list) {
-      const container = document.getElementById(id);
+    return unique.size;
+  }
 
-      let index = 0;
-
-      container.innerHTML = `
-        <div class="org-inner"></div>
-      `;
-
-      const inner = container.querySelector(".org-inner");
-
-      function render() {
-        const item = list[index];
-
-        inner.innerHTML = `
-          <img src="${item.foto}">
-          <div>
-            <h3>${item.nama}</h3>
-            <p>${item.role}</p>
+  function renderStats(items) {
+    statsContainer.innerHTML = items
+      .map(
+        (item) => `
+          <div class="stat-card">
+            <div class="stat-num" data-target="${item.value}">0</div>
+            <p>${item.label}</p>
           </div>
-        `;
+        `
+      )
+      .join("");
 
-        inner.classList.remove("fade");
-        setTimeout(() => inner.classList.add("fade"), 50);
-      }
+    statsContainer.querySelectorAll(".stat-num").forEach((el) => {
+      const target = parseInt(el.dataset.target || "0", 10);
+      animateCount(el, target, 1200);
+    });
+  }
 
-      render();
+  function animateCount(el, target, duration) {
+    const start = performance.now();
 
-      setInterval(() => {
-        index++;
-        if (index >= list.length) index = 0;
-        render();
-      }, 3000);
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const value = Math.floor(progress * target);
+      el.textContent = value.toLocaleString("id-ID");
+
+      if (progress < 1) requestAnimationFrame(step);
     }
 
-    /* ================= INIT ================= */
-    createSlider("ketua", data.ketua);
-    createSlider("sekretaris", data.sekretaris);
-    createSlider("bendahara", data.bendahara);
-    createSlider("koordinator", data.koordinator);
-    createSlider("member", data.member);
-
-  });
+    requestAnimationFrame(step);
+  }
+});

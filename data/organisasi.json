@@ -1,33 +1,187 @@
 {
-  "stats": [
-    { "label": "Anggota", "value": 25 },
-    { "label": "Prestasi", "value": 12 },
-    { "label": "Karya", "value": 30 }
+  "anggotaUnik": [
+    {
+      "id": "a1",
+      "nama": "Nama Ketua",
+      "jabatan": "Ketua",
+      "foto": "img/user1.jpg",
+      "catatan": "Memimpin arah kerja tim jurnalistik."
+    },
+    {
+      "id": "a2",
+      "nama": "Nama Wakil",
+      "jabatan": "Wakil Ketua",
+      "foto": "img/user2.jpg",
+      "catatan": "Membantu koordinasi kegiatan tim."
+    },
+    {
+      "id": "a3",
+      "nama": "Sekretaris 1",
+      "jabatan": "Sekretaris",
+      "foto": "img/user3.jpg",
+      "catatan": "Mengelola administrasi dan arsip."
+    },
+    {
+      "id": "a4",
+      "nama": "Sekretaris 2",
+      "jabatan": "Sekretaris",
+      "foto": "img/user4.jpg",
+      "catatan": "Membantu pencatatan dan dokumentasi."
+    },
+    {
+      "id": "a5",
+      "nama": "Bendahara 1",
+      "jabatan": "Bendahara",
+      "foto": "img/user5.jpg",
+      "catatan": "Mengatur kebutuhan dan pencatatan dana."
+    },
+    {
+      "id": "a6",
+      "nama": "Bendahara 2",
+      "jabatan": "Bendahara",
+      "foto": "img/user6.jpg",
+      "catatan": "Mendukung pengelolaan keuangan tim."
+    },
+    {
+      "id": "a7",
+      "nama": "Koordinator Divisi",
+      "jabatan": "Koordivisi",
+      "foto": "img/user7.jpg",
+      "catatan": "Koordinasi antar divisi dan alur kerja."
+    },
+    {
+      "id": "a8",
+      "nama": "Dev / Kamu",
+      "jabatan": "Developer",
+      "foto": "img/user8.jpg",
+      "catatan": "Pengembang website dan sistem internal."
+    },
+    {
+      "id": "a9",
+      "nama": "Member 1",
+      "jabatan": "Anggota",
+      "foto": "img/user9.jpg",
+      "catatan": "Aktif pada liputan dan konten."
+    },
+    {
+      "id": "a10",
+      "nama": "Member 2",
+      "jabatan": "Anggota",
+      "foto": "img/user10.jpg",
+      "catatan": "Aktif pada tulisan dan dokumentasi."
+    },
+    {
+      "id": "a11",
+      "nama": "Member 3",
+      "jabatan": "Anggota",
+      "foto": "img/user11.jpg",
+      "catatan": "Membantu produksi konten."
+    },
+    {
+      "id": "a12",
+      "nama": "Member 4",
+      "jabatan": "Anggota",
+      "foto": "img/user12.jpg",
+      "catatan": "Membantu publikasi dan desain."
+    }
   ],
 
   "ketua": [
-    { "nama": "Ahmad", "role": "Ketua", "foto": "img/user1.jpg" },
-    { "nama": "Siti", "role": "Wakil", "foto": "img/user2.jpg" }
+    {
+      "id": "a1",
+      "nama": "Nama Ketua",
+      "jabatan": "Ketua",
+      "foto": "img/user1.jpg",
+      "catatan": "Memimpin arah kerja tim jurnalistik."
+    },
+    {
+      "id": "a2",
+      "nama": "Nama Wakil",
+      "jabatan": "Wakil Ketua",
+      "foto": "img/user2.jpg",
+      "catatan": "Membantu koordinasi kegiatan tim."
+    }
   ],
 
   "sekretaris": [
-    { "nama": "Budi", "role": "Sekretaris 1", "foto": "img/user3.jpg" },
-    { "nama": "Ani", "role": "Sekretaris 2", "foto": "img/user4.jpg" }
+    {
+      "id": "a3",
+      "nama": "Sekretaris 1",
+      "jabatan": "Sekretaris",
+      "foto": "img/user3.jpg",
+      "catatan": "Mengelola administrasi dan arsip."
+    },
+    {
+      "id": "a4",
+      "nama": "Sekretaris 2",
+      "jabatan": "Sekretaris",
+      "foto": "img/user4.jpg",
+      "catatan": "Membantu pencatatan dan dokumentasi."
+    }
   ],
 
   "bendahara": [
-    { "nama": "Dina", "role": "Bendahara 1", "foto": "img/user5.jpg" },
-    { "nama": "Rizky", "role": "Bendahara 2", "foto": "img/user6.jpg" }
+    {
+      "id": "a5",
+      "nama": "Bendahara 1",
+      "jabatan": "Bendahara",
+      "foto": "img/user5.jpg",
+      "catatan": "Mengatur kebutuhan dan pencatatan dana."
+    },
+    {
+      "id": "a6",
+      "nama": "Bendahara 2",
+      "jabatan": "Bendahara",
+      "foto": "img/user6.jpg",
+      "catatan": "Mendukung pengelolaan keuangan tim."
+    }
   ],
 
   "koordinator": [
-    { "nama": "Kamu ", "role": "Developer", "foto": "img/user7.jpg" },
-    { "nama": "Lainnya", "role": "Koordivisi", "foto": "img/user8.jpg" }
+    {
+      "id": "a7",
+      "nama": "Koordinator Divisi",
+      "jabatan": "Koordivisi",
+      "foto": "img/user7.jpg",
+      "catatan": "Koordinasi antar divisi dan alur kerja."
+    },
+    {
+      "id": "a8",
+      "nama": "Dev / Kamu",
+      "jabatan": "Developer",
+      "foto": "img/user8.jpg",
+      "catatan": "Pengembang website dan sistem internal."
+    }
   ],
 
-  "member": [
-    { "nama": "Member 1", "role": "Anggota", "foto": "img/user1.jpg" },
-    { "nama": "Member 2", "role": "Anggota", "foto": "img/user2.jpg" },
-    { "nama": "Member 3", "role": "Anggota", "foto": "img/user3.jpg" }
+  "anggota": [
+    {
+      "id": "a9",
+      "nama": "Member 1",
+      "jabatan": "Anggota",
+      "foto": "img/user9.jpg",
+      "catatan": "Aktif pada liputan dan konten."
+    },
+    {
+      "id": "a10",
+      "nama": "Member 2",
+      "jabatan": "Anggota",
+      "foto": "img/user10.jpg",
+      "catatan": "Aktif pada tulisan dan dokumentasi."
+    },
+    {
+      "id": "a11",
+      "nama": "Member 3",
+      "jabatan": "Anggota",
+      "foto": "img/user11.jpg",
+      "catatan": "Membantu produksi konten."
+    },
+    {
+      "id": "a12",
+      "nama": "Member 4",
+      "jabatan": "Anggota",
+      "foto": "img/user12.jpg",
+      "catatan": "Membantu publikasi dan desain."
+    }
   ]
 }

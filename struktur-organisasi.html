@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Struktur Organisasi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://unpkg.com/feather-icons"></script>
+</head>
+
+<body class="struktur-page">
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="brand">
+    <img src="img/logodsoul.png" class="logo">
+    <a href="index.html" class="navbar-logo">
+      sman1krembung<span>jurnalistik</span>.
+    </a>
+  </div>
+
+  <div class="navbar-nav">
+    <a href="index.html">Home</a>
+    <a href="tentang-kami.html">Tentang</a>
+    <a href="berita.html">Berita</a>
+    <a href="karya.html">Karya</a>
+    <a href="agenda.html">Agenda</a>
+    <a href="index.html#contact">Kontak</a>
+  </div>
+
+  <div class="nav-right">
+    <a href="#" id="hamburger-menu"><i data-feather="menu"></i></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="struktur-hero">
+  <div class="struktur-hero-overlay"></div>
+  <div class="struktur-hero-content">
+    <p class="label">Struktur Tim</p>
+    <h1>Struktur Organisasi Jurnalistik</h1>
+    <p>Seluruh posisi tim ditampilkan otomatis dari data JSON.</p>
+  </div>
+</section>
+
+<!-- STATISTIK + STRUKTUR -->
+<section class="struktur-section">
+  <div class="org-stats struktur-stats" id="strukturStats"></div>
+  <div class="struktur-grid" id="roleCards"></div>
+</section>
+
+<!-- MEMBER -->
+<section class="member-section">
+  <div class="member-head">
+    <h2>Daftar Anggota</h2>
+    <p>Seluruh anggota tim ditampilkan dari data yang sama.</p>
+  </div>
+
+  <div class="member-list" id="memberList"></div>
+</section>
+
+<!-- BACK -->
+<div class="back-wrapper">
+  <a href="index.html" class="back-btn">← Kembali ke Beranda</a>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <h3>SMAN 1 Krembung Jurnalistik</h3>
+  <p>Menginformasikan kegiatan, karya, dan prestasi siswa</p>
+</footer>
+
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const statsContainer = document.getElementById("strukturStats");
+  const roleCards = document.getElementById("roleCards");
+  const memberList = document.getElementById("memberList");
+
+  function safeFetch(path) {
+    return fetch(path)
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
+      .catch(() => []);
+  }
+
+  Promise.all([
+    safeFetch("data/organisasi.json"),
+    safeFetch("data/prestasi-internal.json"),
+    safeFetch("data/karya-internal.json")
+  ]).then(([org, prestasi, karya]) => {
+
+    const anggotaUnik = Array.isArray(org.anggotaUnik) ? org.anggotaUnik : [];
+
+    // ✅ STATISTIK
+    const stats = [
+      { label: "Anggota Jurnalistik", value: anggotaUnik.length },
+      { label: "Prestasi", value: prestasi.length },
+      { label: "Karya", value: karya.length }
+    ];
+
+    renderStats(statsContainer, stats);
+
+    renderRoleCards(roleCards, {
+      ketua: org.ketua || [],
+      sekretaris: org.sekretaris || [],
+      bendahara: org.bendahara || [],
+      koordinator: org.koordinator || [],
+      anggota: org.anggota || []
+    });
+
+    renderMemberList(memberList, anggotaUnik);
+
+    feather.replace();
+  });
+
+  function renderStats(container, stats) {
+    if (!container) return;
+
+    container.innerHTML = stats.map(item => `
+      <div class="stat-card">
+        <div class="stat-num">${item.value}</div>
+        <p>${item.label}</p>
+      </div>
+    `).join("");
+  }
+
+  function renderRoleCards(container, data) {
+    if (!container) return;
+
+    const groups = [
+      { key: "ketua", title: "Ketua & Wakil", accent: "chief", icon: "user-check" },
+      { key: "sekretaris", title: "Sekretaris", accent: "admin", icon: "file-text" },
+      { key: "bendahara", title: "Bendahara", accent: "finance", icon: "credit-card" },
+      { key: "koordinator", title: "Koordinator", accent: "coord", icon: "shuffle" },
+      { key: "anggota", title: "Anggota", accent: "member", icon: "users" }
+    ];
+
+    container.innerHTML = groups.map(group => `
+      <div class="structure-card" data-group="${group.key}">
+        <div class="structure-card-top">
+          <span class="org-quick-tag ${group.accent}">${group.title}</span>
+          <i data-feather="${group.icon}"></i>
+        </div>
+
+        <div class="structure-card-body">
+          <img class="structure-photo" src="" alt="">
+          <div class="structure-meta">
+            <h3></h3>
+            <p class="structure-role"></p>
+            <p class="structure-note"></p>
+          </div>
+        </div>
+      </div>
+    `).join("");
+
+    groups.forEach(group => {
+      const card = container.querySelector(`.structure-card[data-group="${group.key}"]`);
+      const list = data[group.key] || [];
+
+      if (!card) return;
+
+      if (list.length === 0) {
+        card.querySelector(".structure-card-body").innerHTML =
+          "<div class='org-empty'>Belum ada data.</div>";
+        return;
+      }
+
+      let index = 0;
+
+      const paint = (item) => {
+        card.querySelector(".structure-photo").src = item.foto;
+        card.querySelector(".structure-photo").alt = item.nama;
+        card.querySelector("h3").textContent = item.nama;
+        card.querySelector(".structure-role").textContent = item.jabatan;
+        card.querySelector(".structure-note").textContent = item.catatan || "";
+      };
+
+      paint(list[index]);
+
+      if (list.length > 1) {
+        setInterval(() => {
+          card.classList.add("is-fading");
+          setTimeout(() => {
+            index = (index + 1) % list.length;
+            paint(list[index]);
+            card.classList.remove("is-fading");
+          }, 180);
+        }, 3200);
+      }
+    });
+  }
+
+  function renderMemberList(container, members) {
+    if (!container) return;
+
+    container.innerHTML = members.map(item => `
+      <div class="member-pill">
+        <img src="${item.foto}" alt="${item.nama}">
+        <div>
+          <h4>${item.nama}</h4>
+          <p>${item.jabatan}</p>
+        </div>
+      </div>
+    `).join("");
+  }
+});
+
+// NAVBAR MOBILE
+const menu = document.querySelector('#hamburger-menu');
+const nav = document.querySelector('.navbar-nav');
+
+menu.onclick = (e) => {
+  e.preventDefault();
+  nav.classList.toggle('active');
+};
+</script>
+
+</body>
+</html>

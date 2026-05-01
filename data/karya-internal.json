@@ -1,17 +1,20 @@
 [
   {
-    "judul": "Draft Artikel Latihan 1",
-    "deskripsi": "Latihan penulisan berita kegiatan sekolah.",
-    "gambar": "img/internal1.jpg"
+    "id": "ki1",
+    "judul": "Draft Artikel Lingkungan",
+    "deskripsi": "Masih tahap revisi",
+    "gambar": "img/karya3.jpg",
+    "kategori": "draft",
+    "tanggal": "2026-04-29",
+    "isi": "<p>Draft artikel lingkungan untuk publikasi internal.</p>"
   },
   {
-    "judul": "Editing Video Workshop",
-    "deskripsi": "Proses editing dokumentasi kegiatan jurnalistik.",
-    "gambar": "img/internal2.jpg"
-  },
-  {
-    "judul": "Brainstorm Konten",
-    "deskripsi": "Diskusi ide konten sosial media jurnalistik.",
-    "gambar": "img/internal3.jpg"
+    "id": "ki2",
+    "judul": "Video Dokumentasi Event",
+    "deskripsi": "Sudah dipublikasikan",
+    "gambar": "img/karya2.jpg",
+    "kategori": "publikasi",
+    "tanggal": "2026-04-27",
+    "isi": "<p>Dokumentasi video event sekolah.</p>"
   }
 ]

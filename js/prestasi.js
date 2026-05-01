@@ -1,9 +1,10 @@
-const container = document.getElementById("karyaContainer");
+const container = document.getElementById("prestasiContainer");
 const buttons = document.querySelectorAll(".filter button");
-const heroSlider = document.getElementById("karyaSlider");
+const heroSlider = document.getElementById("prestasiSlider");
 
 let allData = [];
 
+// ================= FETCH DATA =================
 function safeFetchJSON(path) {
   return fetch(path)
     .then(res => {
@@ -14,9 +15,11 @@ function safeFetchJSON(path) {
 }
 
 Promise.all([
-  safeFetchJSON("data/karya.json"),
-  safeFetchJSON("data/karya-internal.json")
+  safeFetchJSON("data/prestasi.json"),
+  safeFetchJSON("data/prestasi-internal.json")
 ]).then(([umum, internal]) => {
+
+  // GABUNG + SORT TERBARU
   allData = [...umum, ...internal].sort((a, b) => {
     const da = new Date(a.tanggal || "1970-01-01");
     const db = new Date(b.tanggal || "1970-01-01");
@@ -27,20 +30,26 @@ Promise.all([
   initHeroSlider(allData);
 });
 
+// ================= TAMPILKAN CARD =================
 function tampilkan(data) {
   if (!container) return;
 
   container.innerHTML = "";
 
   data.forEach(item => {
-    const href = item.link || "#";
+
+    // 🔥 AUTO LINK KE DETAIL PAGE
+    const href = item.link 
+      ? item.link 
+      : `detail-prestasi.html?id=${item.id}`;
+
     const target = href.startsWith("http") ? "_blank" : "_self";
 
     const card = `
       <a href="${href}" target="${target}" class="karya-card">
         <div class="karya-img">
           <img src="${item.gambar}" alt="${item.judul}">
-          <span class="karya-badge">${item.kategori || "karya"}</span>
+          <span class="karya-badge">${item.kategori || "prestasi"}</span>
         </div>
         <div class="karya-body">
           <h3>${item.judul}</h3>
@@ -49,16 +58,20 @@ function tampilkan(data) {
         </div>
       </a>
     `;
+
     container.innerHTML += card;
   });
 }
 
+// ================= FILTER =================
 buttons.forEach(btn => {
   btn.addEventListener("click", () => {
+
     document.querySelector(".filter .active").classList.remove("active");
     btn.classList.add("active");
 
     const filter = btn.dataset.filter;
+
     if (filter === "all") {
       tampilkan(allData);
     } else {
@@ -67,6 +80,7 @@ buttons.forEach(btn => {
   });
 });
 
+// ================= HERO SLIDER =================
 function initHeroSlider(data) {
   if (!heroSlider) return;
 
@@ -75,6 +89,7 @@ function initHeroSlider(data) {
 
   let html = "";
 
+  // DUPLIKAT SLIDE BIAR LOOP HALUS
   heroData.forEach(item => {
     html += `
       <div class="karya-slide">
@@ -94,9 +109,11 @@ function initHeroSlider(data) {
   heroSlider.innerHTML = html;
 
   let index = 0;
+
   setInterval(() => {
     index++;
     if (index >= heroData.length) index = 0;
+
     heroSlider.style.transform = `translateX(-${index * 100}%)`;
   }, 4000);
 }
