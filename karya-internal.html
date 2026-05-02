@@ -7,6 +7,31 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      gap: 12px;
+      color: #0a3646;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(10, 54, 70, 0.15);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
@@ -23,7 +48,7 @@
     <a href="index.html">Home</a>
     <a href="tentang-kami.html">Tentang</a>
     <a href="berita.html">Berita</a>
-    <a href="prestasi.html">Prestasi</a>
+    <a href="karya.html">Karya</a>
     <a href="agenda.html">Agenda</a>
     <a href="index.html#contact">Kontak</a>
   </div>
@@ -38,18 +63,23 @@
   <div class="karya-overlay"></div>
 
   <div class="karya-content">
-    <p class="label">Proses Kreatif</p>
-    <h1>Karya Internal</h1>
-    <p>Draft, proses, dan hasil karya tim jurnalistik.</p>
+    <p class="label">Karya Internal</p>
+    <h1>Karya Tim</h1>
+    <p>Karya internal tim jurnalistik ditampilkan dari spreadsheet.</p>
   </div>
 </section>
 
 <section class="karya-wrapper">
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Memuat karya internal...</p>
+  </div>
+
   <div class="filter">
     <button data-filter="all" class="active">Semua</button>
     <button data-filter="draft">Draft</button>
     <button data-filter="publikasi">Publikasi</button>
-    <button data-filter="proses">Proses</button>
+    <button data-filter="lainnya">Lainnya</button>
   </div>
 
   <div class="karya-grid" id="karyaInternalContainer"></div>
@@ -61,20 +91,14 @@
 
 <footer class="footer">
   <h3>SMAN 1 Krembung Jurnalistik</h3>
-  <p>Karya internal tim jurnalistik</p>
+  <p>Karya internal adalah ruang proses</p>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/karya-internal.js"></script>
 <script>
   feather.replace();
-
-  const menu = document.querySelector('#hamburger-menu');
-  const nav = document.querySelector('.navbar-nav');
-
-  menu.onclick = (e) => {
-    e.preventDefault();
-    nav.classList.toggle('active');
-  };
 </script>
+
 </body>
 </html>

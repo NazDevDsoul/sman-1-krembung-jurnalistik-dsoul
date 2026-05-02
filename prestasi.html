@@ -7,6 +7,31 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      gap: 12px;
+      color: #0a3646;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(10, 54, 70, 0.15);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
@@ -45,6 +70,11 @@
 </section>
 
 <section class="karya-wrapper">
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Memuat prestasi...</p>
+  </div>
+
   <div class="filter">
     <button data-filter="all" class="active">Semua</button>
     <button data-filter="lomba">Lomba</button>
@@ -64,17 +94,10 @@
   <p>Prestasi adalah hasil dari konsistensi</p>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/prestasi.js"></script>
 <script>
   feather.replace();
-
-  const menu = document.querySelector('#hamburger-menu');
-  const nav = document.querySelector('.navbar-nav');
-
-  menu.onclick = (e) => {
-    e.preventDefault();
-    nav.classList.toggle('active');
-  };
 </script>
 
 </body>

@@ -7,6 +7,31 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      gap: 12px;
+      color: #0a3646;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(10, 54, 70, 0.15);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
@@ -43,11 +68,18 @@
 </section>
 
 <section class="karya-wrapper">
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Memuat karya...</p>
+  </div>
+
   <div class="filter">
     <button data-filter="all" class="active">Semua</button>
     <button data-filter="foto">Foto</button>
     <button data-filter="video">Video</button>
     <button data-filter="artikel">Artikel</button>
+    <button data-filter="umum">Umum</button>
+    <button data-filter="internal">Internal</button>
   </div>
 
   <div class="karya-grid" id="karyaContainer"></div>
@@ -62,8 +94,11 @@
   <p>Wadah kreativitas dan karya siswa</p>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/karya.js"></script>
-<script>feather.replace();</script>
+<script>
+  feather.replace();
+</script>
 
 </body>
 </html>

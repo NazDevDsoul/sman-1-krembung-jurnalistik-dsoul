@@ -3238,6 +3238,24 @@ body {
   }
 }
 
+.badge {
+  display: inline-block;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(10, 54, 70, 0.8);
+}
+
+.badge.umum {
+  background: rgba(10, 54, 70, 0.82);
+}
+
+.badge.internal {
+  background: rgba(255, 152, 0, 0.9);
+}
+
 /* Media Queries*/
 
 /* Laptop */

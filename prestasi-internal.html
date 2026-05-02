@@ -7,6 +7,31 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 220px;
+      gap: 12px;
+      color: #0a3646;
+    }
+
+    .spinner {
+      width: 42px;
+      height: 42px;
+      border: 4px solid rgba(10, 54, 70, 0.15);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
 <body>
@@ -38,13 +63,18 @@
   <div class="karya-overlay"></div>
 
   <div class="karya-content">
-    <p class="label">Pencapaian Internal</p>
-    <h1>Prestasi Internal</h1>
-    <p>Prestasi tim jurnalistik yang berasal dari data internal.</p>
+    <p class="label">Prestasi Internal</p>
+    <h1>Prestasi Tim</h1>
+    <p>Prestasi internal tim jurnalistik ditampilkan dari spreadsheet.</p>
   </div>
 </section>
 
 <section class="karya-wrapper">
+  <div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Memuat prestasi internal...</p>
+  </div>
+
   <div class="filter">
     <button data-filter="all" class="active">Semua</button>
     <button data-filter="lomba">Lomba</button>
@@ -61,20 +91,13 @@
 
 <footer class="footer">
   <h3>SMAN 1 Krembung Jurnalistik</h3>
-  <p>Prestasi internal tim jurnalistik</p>
+  <p>Prestasi internal adalah jejak kerja tim</p>
 </footer>
 
+<script src="js/api.js"></script>
 <script src="js/prestasi-internal.js"></script>
 <script>
   feather.replace();
-
-  const menu = document.querySelector('#hamburger-menu');
-  const nav = document.querySelector('.navbar-nav');
-
-  menu.onclick = (e) => {
-    e.preventDefault();
-    nav.classList.toggle('active');
-  };
 </script>
 
 </body>

@@ -7,22 +7,57 @@
 
   <link rel="stylesheet" href="css/style.css">
   <script src="https://unpkg.com/feather-icons"></script>
+
+  <style>
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 60vh;
+      gap: 12px;
+      color: #0a3646;
+    }
+
+    .spinner {
+      width: 45px;
+      height: 45px;
+      border: 4px solid rgba(10, 54, 70, 0.15);
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .fade-in {
+      animation: fadeIn 0.35s ease both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .detail-hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
 
-<!-- NAVBAR -->
-<nav class="navbar">    
+<nav class="navbar">
   <div class="brand">
-    <img src="img/logodsoul.png" class="logo">
-    <a href="index.html" class="navbar-logo">
-      sman1krembung<span>jurnalistik</span>.
-    </a>
+    <img src="img/logodsoul.png" class="logo" alt="logo">
+    <a href="index.html" class="navbar-logo">sman1krembung<span>jurnalistik</span>.</a>
   </div>
 
   <div class="navbar-nav">
-    <a href="index.html">Home</a>
-    <a href="berita.html">Berita</a>
+    <a href="index.html#home">Home</a>
+    <a href="index.html#about">Tentang Kami</a>
     <a href="karya.html">Karya</a>
     <a href="index.html#contact">Kontak</a>
   </div>
@@ -32,142 +67,251 @@
   </div>
 </nav>
 
-<!-- HERO -->
-<section class="hero-berita">
-  <div class="overlay">
-    <h1 id="judul"></h1>
-    <p id="breadcrumb">Home > Karya</p>
-  </div>
-</section>
-
-<!-- INFO -->
-<section class="info-berita">
-  <p><b>Tanggal:</b> <span id="tanggal"></span></p>
-  <p><b>Kategori:</b> <span id="kategori"></span></p>
-</section>
-
-<!-- ISI -->
-<section class="detail-berita">
-  <img id="gambar">
-  <div id="isi"></div>
-</section>
-
-<div class="back-button">
-  <button onclick="history.back()">← Kembali</button>
+<div id="loading" class="loading">
+  <div class="spinner"></div>
+  <p>Memuat karya...</p>
 </div>
 
-<!-- 🔥 KARYA LAINNYA -->
-<section class="berita-lain">
-  <h2>Karya Terbaru</h2>
+<div id="content" class="detail-hidden">
+  <section class="hero-berita">
+    <div class="overlay">
+      <h1 id="judul"></h1>
+      <p id="breadcrumb">Home > Karya</p>
+    </div>
+  </section>
 
-  <div class="slider">
-    <div class="slide-track" id="karyaSlider"></div>
+  <section class="info-berita">
+    <p><b>Dipublikasikan:</b> <span id="tanggal"></span></p>
+    <p><b>Penulis:</b> <span id="penulis"></span></p>
+  </section>
+
+  <section class="detail-berita fade-in">
+    <img id="gambar" alt="">
+    <div id="isi"></div>
+    <div id="linkArea" style="margin-top: 1rem;"></div>
+  </section>
+
+  <div class="back-button">
+    <button onclick="history.back()">← Kembali</button>
   </div>
-</section>
 
-<!-- FOOTER -->
+  <section class="berita-lain">
+    <h2>Karya Terbaru</h2>
+    <div class="slider">
+      <div class="slide-track" id="karyaSlider"></div>
+    </div>
+  </section>
+</div>
+
 <footer class="footer">
   <p>© 2026 SMAN 1 Krembung Jurnalistik</p>
 </footer>
 
 <script>
-feather.replace();
-</script>
+  feather.replace();
 
-<!-- HAMBURGER -->
-<script>
-const menu = document.querySelector('#hamburger-menu');
-const nav = document.querySelector('.navbar-nav');
+  const menu = document.querySelector('#hamburger-menu');
+  const nav = document.querySelector('.navbar-nav');
 
-menu.onclick = () => {
-  nav.classList.toggle('active');
-};
-</script>
+  if (menu && nav) {
+    menu.onclick = (e) => {
+      e.preventDefault();
+      nav.classList.toggle('active');
+    };
+  }
 
-<!-- 🔥 SCRIPT UTAMA -->
-<script>
-fetch('data/karya.json')
-  .then(res => res.json())
-  .then(data => {
+  document.addEventListener("DOMContentLoaded", () => {
+    const API = "https://script.google.com/macros/s/AKfycbyw221VQqj3ql5INNphqZfSfDtpkrFt2xcJTSlgxu7AknNu81KAwyHx5hMyvSC6Px5Z/exec?type=karya&nocache=" + Date.now();
+    const CACHE_KEY = "karya_cache_v1";
+    const CACHE_TTL = 5 * 60 * 1000;
+
+    const loading = document.getElementById("loading");
+    const content = document.getElementById("content");
 
     const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get("id"));
+    const id = params.get("id");
 
-    if (isNaN(id) || id < 0 || id >= data.length) {
-      document.body.innerHTML = "<h2>Karya tidak ditemukan</h2>";
-      return;
+    function readCache() {
+      try {
+        const raw = localStorage.getItem(CACHE_KEY);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.time || !Array.isArray(parsed.data)) return null;
+        if (Date.now() - parsed.time > CACHE_TTL) return null;
+        return parsed.data;
+      } catch {
+        return null;
+      }
     }
 
-    const karya = data[id];
+    function setLoading(text) {
+      loading.innerHTML = `<div class="spinner"></div><p>${text}</p>`;
+      loading.style.display = "flex";
+    }
 
-    // isi
-    document.getElementById("judul").innerText = karya.judul;
-    document.getElementById("tanggal").innerText = karya.tanggal;
-    document.getElementById("kategori").innerText = karya.kategori;
-    document.getElementById("gambar").src = karya.gambar;
-    document.getElementById("breadcrumb").innerText = "Home > Karya > " + karya.judul;
+    function showContent() {
+      loading.style.display = "none";
+      content.classList.remove("detail-hidden");
+      content.style.display = "block";
+    }
 
-    document.getElementById("isi").innerHTML = karya.isi;
+    function isYouTube(link) {
+      const s = String(link || "");
+      return s.includes("youtube.com") || s.includes("youtu.be");
+    }
 
-    // 🔥 slider karya lain
-    const container = document.getElementById("karyaSlider");
+    function extractYouTubeId(link) {
+      const s = String(link || "");
+      const match = s.match(/(?:v=|\/)([0-9A-Za-z_-]{11})/);
+      return match ? match[1] : "";
+    }
 
-    function card(item){
-      return `
-        <a href="detail-karya.html?id=${item.id}" class="card-link">
+    function renderDetail(data) {
+      const item = data.find(x => String(x.id) === String(id));
+
+      if (!item) {
+        loading.innerHTML = "<p>Karya tidak ditemukan 😢</p>";
+        return false;
+      }
+
+      document.getElementById("judul").innerText = item.judul || "";
+      document.getElementById("tanggal").innerText = item.tanggal || "";
+      document.getElementById("penulis").innerText = item.penulis || "Tim Jurnalistik";
+      document.getElementById("gambar").src = item.gambar || "img/default.jpg";
+      document.getElementById("gambar").alt = item.judul || "";
+      document.getElementById("isi").innerHTML = item.isi || "";
+      document.getElementById("breadcrumb").innerText = "Home > Karya > " + (item.judul || "");
+
+      const badgeText = item.sumber === "internal" ? "Internal" : "Umum";
+
+      const linkArea = document.getElementById("linkArea");
+      let extra = "";
+
+      if (item.link) {
+        if (isYouTube(item.link)) {
+          const yt = extractYouTubeId(item.link);
+          if (yt) {
+            extra = `
+              <div style="margin-top:1rem;">
+                <iframe
+                  width="100%"
+                  height="400"
+                  src="https://www.youtube.com/embed/${yt}"
+                  title="${item.judul || 'Video Karya'}"
+                  frameborder="0"
+                  allowfullscreen
+                ></iframe>
+              </div>
+            `;
+          }
+        } else if (!String(item.link).includes("detail-karya.html")) {
+          extra = `
+            <a href="${item.link}" target="_blank" rel="noopener noreferrer" class="back-btn" style="display:inline-block;">
+              Buka Tautan
+            </a>
+          `;
+        }
+      }
+
+      linkArea.innerHTML = `
+        <div style="margin-top: 0.8rem;">
+          <span class="badge ${item.sumber === 'internal' ? 'internal' : 'umum'}">${badgeText}</span>
+          <span class="badge" style="margin-left:8px;">${item.kategori || "karya"}</span>
+        </div>
+        ${extra}
+      `;
+
+      const other = data.filter(x => String(x.id) !== String(id));
+      const slider = document.getElementById("karyaSlider");
+
+      slider.innerHTML = [...other, ...other].map(x => `
+        <a href="detail-karya.html?id=${encodeURIComponent(x.id)}" class="card-link">
           <div class="card">
-            <img src="${item.gambar}">
-            <h3>${item.judul}</h3>
-            <p>${item.deskripsi}</p>
+            <img src="${x.gambar || 'img/default.jpg'}" alt="${x.judul}" onerror="this.src='img/default.jpg'">
+            <h3>${x.judul || ""}</h3>
+            <p>${x.deskripsi || ""}</p>
           </div>
         </a>
-      `;
+      `).join("");
+
+      enableDrag(slider);
+      return true;
     }
 
-    let html = "";
-    data.forEach(item => html += card(item));
-    data.forEach(item => html += card(item)); // infinite
+    function enableDrag(track) {
+      if (!track) return;
 
-    container.innerHTML = html;
+      let isDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+
+      track.addEventListener("mousedown", (e) => {
+        isDown = true;
+        startX = e.pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      });
+
+      track.addEventListener("mouseleave", () => { isDown = false; });
+      track.addEventListener("mouseup", () => { isDown = false; });
+
+      track.addEventListener("mousemove", (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+      });
+
+      track.addEventListener("touchstart", (e) => {
+        isDown = true;
+        startX = e.touches[0].pageX - track.offsetLeft;
+        scrollLeft = track.scrollLeft;
+      }, { passive: true });
+
+      track.addEventListener("touchend", () => { isDown = false; });
+
+      track.addEventListener("touchmove", (e) => {
+        if (!isDown) return;
+        const x = e.touches[0].pageX - track.offsetLeft;
+        const walk = (x - startX) * 2;
+        track.scrollLeft = scrollLeft - walk;
+      }, { passive: true });
+    }
+
+    const cached = readCache();
+
+    if (cached && renderDetail(cached)) {
+      showContent();
+    } else {
+      setLoading("Memuat karya...");
+    }
+
+    fetch(API, { cache: "no-store" })
+      .then(res => {
+        if (!res.ok) throw new Error("Gagal memuat data");
+        return res.json();
+      })
+      .then(data => {
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          time: Date.now(),
+          data
+        }));
+
+        if (renderDetail(data)) {
+          showContent();
+        } else {
+          loading.innerHTML = "<p>Karya tidak ditemukan 😢</p>";
+        }
+      })
+      .catch(err => {
+        console.error(err);
+        if (cached && renderDetail(cached)) {
+          showContent();
+        } else {
+          loading.innerHTML = "<p>Gagal memuat karya 😢</p>";
+        }
+      });
   });
-</script>
-
-<!-- DRAG SLIDER -->
-<script>
-const track = document.querySelector('#karyaSlider');
-
-let isDown = false;
-let startX;
-let scrollLeft;
-
-track.addEventListener('mousedown', (e) => {
-  isDown = true;
-  startX = e.pageX - track.offsetLeft;
-  scrollLeft = track.scrollLeft;
-});
-
-track.addEventListener('mouseup', () => isDown = false);
-track.addEventListener('mouseleave', () => isDown = false);
-
-track.addEventListener('mousemove', (e) => {
-  if(!isDown) return;
-  e.preventDefault();
-  const x = e.pageX - track.offsetLeft;
-  const walk = (x - startX) * 2;
-  track.scrollLeft = scrollLeft - walk;
-});
-
-/* TOUCH */
-track.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].pageX;
-  scrollLeft = track.scrollLeft;
-});
-
-track.addEventListener('touchmove', (e) => {
-  const x = e.touches[0].pageX;
-  const walk = (x - startX) * 2;
-  track.scrollLeft = scrollLeft - walk;
-});
 </script>
 
 </body>

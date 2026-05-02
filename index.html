@@ -13,18 +13,71 @@
       rel="stylesheet"
     />
 
-    <!-- Feathers Icon-->
+    <!-- Feather Icons -->
     <script src="https://unpkg.com/feather-icons"></script>
 
     <link rel="stylesheet" href="css/style.css" />
+
+    <style>
+      /* Loading overlay tanpa mengubah style utama */
+      .page-loading {
+        position: fixed;
+        inset: 0;
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(203, 207, 205, 0.88);
+        backdrop-filter: blur(6px);
+        transition: opacity 0.35s ease, visibility 0.35s ease;
+      }
+
+      .page-loading.hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .page-loading-box {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        color: #0a3646;
+        font-family: "Poppins", sans-serif;
+        text-align: center;
+      }
+
+      .page-spinner {
+        width: 44px;
+        height: 44px;
+        border: 4px solid rgba(10, 54, 70, 0.16);
+        border-top: 4px solid #0a3646;
+        border-radius: 50%;
+        animation: pageSpin 1s linear infinite;
+      }
+
+      @keyframes pageSpin {
+        to { transform: rotate(360deg); }
+      }
+    </style>
   </head>
   <body>
+    <!-- LOADING -->
+    <div id="pageLoading" class="page-loading">
+      <div class="page-loading-box">
+        <div class="page-spinner"></div>
+        <p>Memuat halaman...</p>
+      </div>
+    </div>
+
     <!-- navbar start-->
     <nav class="navbar">
       <div class="brand">
-        <img src=".//img/logodsoul.png" class="logo" alt="logo">
+        <img src="./img/logodsoul.png" class="logo" alt="logo" />
         <a href="#" class="navbar-logo">sman1krembung<span>jurnalistik</span>.</a>
       </div>
+
       <div class="navbar-nav">
         <a href="#home">Home</a>
         <a href="#about">Tentang Kami</a>
@@ -42,616 +95,655 @@
     <!-- navbar end-->
 
     <section class="hero" id="home">
-
-  <!-- BACKGROUND SLIDER -->
-  <div class="hero-bg">
-    <img src="img/header-bg.jpeg" class="bg active">
-    <img src="img/berita1.jpg" class="bg">
-    <img src="img/berita2.jpg" class="bg">
-  </div>
-
-  <div class="hero-overlay"></div>
-
-  <div class="hero-inner">
-
-    <!-- TOP -->
-    <div class="hero-top">
-
-      <!-- LEFT -->
-      <div class="hero-left">
-        <h1>Mari Nikmati SMAN 1 Krembung <span>Jurnalistik</span></h1>
-        <p>Media informasi, karya, dan kreativitas siswa.</p>
-        <a href="informasi.html" class="cta">Informasi Sekolah</a>
+      <!-- BACKGROUND SLIDER -->
+      <div class="hero-bg">
+        <img src="img/header-bg.jpeg" class="bg active" alt="hero bg 1" />
+        <img src="img/berita1.jpg" class="bg" alt="hero bg 2" />
+        <img src="img/berita2.jpg" class="bg" alt="hero bg 3" />
       </div>
 
-      <!-- RIGHT (AGENDA AUTO) -->
-      <div class="hero-right">
-        <h3>Agenda Kegiatan Mendatang</h3>
-        <div id="agendaHome"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="hero-inner">
+        <!-- TOP -->
+        <div class="hero-top">
+          <!-- LEFT -->
+          <div class="hero-left">
+            <h1>Mari Nikmati SMAN 1 Krembung <span>Jurnalistik</span></h1>
+            <p>Media informasi, karya, dan kreativitas siswa.</p>
+            <a href="informasi.html" class="cta">Informasi Sekolah</a>
+          </div>
+
+          <!-- RIGHT (AGENDA AUTO) -->
+          <div class="hero-right">
+            <h3>Agenda Kegiatan Mendatang</h3>
+            <div id="agendaHome"></div>
+          </div>
+        </div>
+
+        <!-- CARD -->
+        <div class="hero-cards">
+          <!-- PRESTASI SEKOLAH -->
+          <a href="prestasi.html" class="hero-card" id="cardPrestasiSekolah">
+            <img id="imgPrestasiSekolah" alt="Prestasi Sekolah" />
+            <div class="hero-card-content">
+              <h4 id="judulPrestasiSekolah">Prestasi Sekolah</h4>
+              <p id="descPrestasiSekolah">Prestasi terbaru SMAN 1 Krembung.</p>
+              <span class="hero-card-date" id="datePrestasiSekolah"></span>
+            </div>
+          </a>
+
+          <!-- BERITA -->
+          <a href="berita.html" class="hero-card" id="cardBerita">
+            <img id="imgBerita" alt="Berita" />
+            <div class="hero-card-content">
+              <h4 id="judulBerita">Berita Terbaru</h4>
+              <p id="descBerita">Update berita terbaru sekolah.</p>
+              <span id="dateBerita"></span>
+            </div>
+          </a>
+
+          <!-- KARYA -->
+          <a href="karya.html" class="hero-card" id="cardKarya">
+            <img id="imgKarya" alt="Karya" />
+            <div class="hero-card-content">
+              <h4 id="judulKarya">Karya Terbaru</h4>
+              <p id="descKarya">Karya terbaru siswa jurnalistik.</p>
+              <span id="dateKarya"></span>
+            </div>
+          </a>
+        </div>
       </div>
-
-    </div>
-
-    <!-- CARD -->
-    <div class="hero-cards">
-
-      <!-- INFORMASI -->
-      <a href="prestasi.html" class="hero-card" id="cardPrestasiSekolah">
-  <img id="imgPrestasiSekolah">
-  <div class="hero-card-content">
-    <h4 id="judulPrestasiSekolah"></h4>
-    <p id="descPrestasiSekolah"></p>
-    <span class="hero-card-date" id="datePrestasiSekolah"></span>
-  </div>
-  </a>
-
-      <!-- BERITA -->
-      <a href="berita.html" class="hero-card" id="cardBerita">
-        <img id="imgBerita">
-        <div class="hero-card-content">
-          <h4 id="judulBerita"></h4>
-          <p id="descBerita"></p>
-          <span id="dateBerita"></span>
-        </div>
-      </a>
-
-      <!-- KARYA -->
-      <a href="karya.html" class="hero-card" id="cardKarya">
-        <img id="imgKarya">
-        <div class="hero-card-content">
-          <h4 id="judulKarya"></h4>
-          <p id="descKarya"></p>
-          <span id="dateKarya"></span>
-        </div>
-      </a>
-
-    </div>
-
-  </div>
-</section>
-
-    
+    </section>
 
     <!-- Menu section start-->
     <section id="Menu" class="menu">
-  <h2><span>Berita</span> Kami</h2>
-  <p class="subjudul">Update berita terbaru sekolah</p>
+      <h2><span>Berita</span> Kami</h2>
+      <p class="subjudul">Update berita terbaru sekolah</p>
 
-  <div class="slider">
-    <div class="slide-track" id="beritaContainer">
-      <!-- isi otomatis -->
-    </div>
-  </div>
-</section>
+      <div class="slider">
+        <div class="slide-track" id="beritaContainer"></div>
+      </div>
+    </section>
     <!-- Menu section end-->
 
-   <section id="about" class="about">
-  <h2><span>Tentang</span> Kami</h2>
+    <section id="about" class="about">
+      <h2><span>Tentang</span> Kami</h2>
 
-  <div class="about-wrapper">
+      <div class="about-wrapper">
+        <!-- PROFIL -->
+        <a href="tentang-kami.html" class="about-card">
+          <div class="about-icon">📌</div>
+          <h3>Profil Jurnalistik</h3>
+          <p>Mengenal visi, misi, dan kegiatan tim jurnalistik.</p>
+        </a>
 
-    <!-- PROFIL -->
-    <a href="tentang-kami.html" class="about-card">
-      <div class="about-icon">📌</div>
-      <h3>Profil Jurnalistik</h3>
-      <p>Mengenal visi, misi, dan kegiatan tim jurnalistik.</p>
-    </a>
+        <!-- PRESTASI INTERNAL (DINAMIS) -->
+        <a href="prestasi-internal.html" class="about-card dynamic-card internal" id="cardPrestasi">
+          <img id="imgPrestasi" alt="Prestasi Internal" />
+          <span class="badge internal">Internal</span>
+          <div class="card-overlay">
+            <div class="about-icon">🏆</div>
+            <h3 id="judulPrestasi">Prestasi Tim</h3>
+            <p id="descPrestasi">Prestasi internal terbaru tim jurnalistik.</p>
+          </div>
+        </a>
 
-    <!-- PRESTASI INTERNAL (DINAMIS) -->
-    <a href="prestasi-internal.html" class="about-card dynamic-card internal" id="cardPrestasi">
-      <img id="imgPrestasi">
-      <span class="badge internal">Internal</span>
-      <div class="card-overlay">
-        <div class="about-icon">🏆</div>
-        <h3 id="judulPrestasi">Prestasi Tim</h3>
-        <p id="descPrestasi"></p>
+        <!-- KARYA INTERNAL (DINAMIS) -->
+        <a href="karya-internal.html" class="about-card dynamic-card internal" id="cardKaryaInternal">
+          <img id="imgKaryaInternal" alt="Karya Internal" />
+          <span class="badge internal">Internal</span>
+          <div class="card-overlay">
+            <div class="about-icon">🔒</div>
+            <h3>Karya Internal</h3>
+            <p id="descKaryaInternal">Karya internal terbaru tim jurnalistik.</p>
+          </div>
+        </a>
+
+        <!-- CTA -->
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfafwUpjkPZtbaG-108dco647wK-6LIaC32l8qwX1kcVIQc_Q/viewform?usp=header" class="about-card cta-card">
+          <div class="about-icon">📝</div>
+          <h3>Pendaftaran Ekstra</h3>
+          <p>Bergabung dengan tim jurnalistik sekarang!</p>
+          <span class="cta-btn">Daftar</span>
+        </a>
       </div>
-    </a>
-
-    <!-- KARYA INTERNAL (DINAMIS) -->
-    <a href="karya-internal.html" class="about-card dynamic-card internal" id="cardKaryaInternal">
-      <img id="imgKaryaInternal">
-      <span class="badge internal">Internal</span>
-      <div class="card-overlay">
-        <div class="about-icon">🔒</div>
-        <h3>Karya Internal</h3>
-        <p id="descKaryaInternal"></p>
-      </div>
-    </a>
-
-    <!-- CTA -->
-    <a href="daftar-ekstra.html" class="about-card cta-card">
-      <div class="about-icon">📝</div>
-      <h3>Pendaftaran Ekstra</h3>
-      <p>Bergabung dengan tim jurnalistik sekarang!</p>
-      <span class="cta-btn">Daftar</span>
-    </a>
-
-  </div>
-</section>
+    </section>
 
     <!-- ===================== -->
     <!-- ================= ORGANISASI ================= -->
-<section class="org-section" id="organisasi">
-  <div class="org-head">
-    <h2>Portal <span>Jurnalistik</span></h2>
-    <p>Statistik singkat dan pintasan cepat ke halaman anggota, prestasi, karya, serta profil jurnalistik.</p>
-  </div>
-
-  <div class="org-stats" id="orgStats"></div>
-
-  <div class="org-quick-grid">
-    <a href="struktur-organisasi.html" class="org-quick-card org-quick-card-main">
-      <div class="org-quick-top">
-        <span class="org-quick-tag">Anggota</span>
-        <i data-feather="users"></i>
+    <section class="org-section" id="organisasi">
+      <div class="org-head">
+        <h2>Portal <span>Jurnalistik</span></h2>
+        <p>Statistik singkat dan pintasan cepat ke halaman anggota, prestasi, karya, serta profil jurnalistik.</p>
       </div>
-      <h3>Struktur Organisasi</h3>
-      <p>Daftar ketua, divisi, dan seluruh anggota tim.</p>
-      <span class="org-quick-link">Buka halaman <i data-feather="arrow-right"></i></span>
-    </a>
 
-    <a href="prestasi-internal.html" class="org-quick-card org-accent-blue">
-      <div class="org-quick-top">
-        <span class="org-quick-tag">Prestasi</span>
-        <i data-feather="award"></i>
-      </div>
-      <h3>Prestasi Internal</h3>
-      <p>Rekap prestasi dan pencapaian tim jurnalistik.</p>
-      <span class="org-quick-link">Lihat prestasi <i data-feather="arrow-right"></i></span>
-    </a>
+      <div class="org-stats" id="orgStats"></div>
 
-    <a href="karya-internal.html" class="org-quick-card org-accent-green">
-      <div class="org-quick-top">
-        <span class="org-quick-tag">Karya</span>
-        <i data-feather="layers"></i>
-      </div>
-      <h3>Karya Internal</h3>
-      <p>Dokumentasi karya, draft, dan proses kreatif tim.</p>
-      <span class="org-quick-link">Lihat karya <i data-feather="arrow-right"></i></span>
-    </a>
-
-    <a href="tentang-kami.html" class="org-quick-card org-accent-violet">
-      <div class="org-quick-top">
-        <span class="org-quick-tag">Profil</span>
-        <i data-feather="info"></i>
-      </div>
-      <h3>Tentang Kami</h3>
-      <p>Profil, visi, misi, dan kegiatan jurnalistik sekolah.</p>
-      <span class="org-quick-link">Buka profil <i data-feather="arrow-right"></i></span>
-    </a>
-  </div>
-</section>
-
-<script src="js/organisasi.js"></script>
-
-<!-- KONTAK & SOSIAL -->
-<!-- ===================== -->
-<section id="contact" class="contact">
-  <h2><span>Kontak</span> Kami</h2>
-
-  <div class="contact-container">
-
-    <!-- INFO -->
-    <div class="contact-info">
-      <h3>SMAN 1 Krembung</h3>
-      <p>Jl. Raya Krembung, Sidoarjo</p>
-      <p>Email: jurnalistik@sman1krembung.sch.id</p>
-
-      <!-- SOCIAL MEDIA -->
-      <div class="socials">
-        <a href="https://instagram.com/dsoul.jurnalistik" target="_blank">
-          <i data-feather="instagram"></i>
-        </a>
-
-        <a href="https://youtube.com/@DsoulJurnalistikSMAN1Krembung" target="_blank">
-          <i data-feather="youtube"></i>
-        </a>
-
-        <a href="https://tiktok.com/@dsoul.jurnalistik" target="_blank">
-          <i data-feather="video"></i>
-        </a>
-
-        <a href="https://wa.me/6289682252569" target="_blank">
-          <i data-feather="phone"></i>
-        </a>
-
-        <a href="mailto:dsouljurnalistik@gmail.com">
-          <i data-feather="mail"></i>
-        </a>
-      </div>
-    </div>
-
-    <!-- FORM -->
-  <div class="contact-form">
-  <form action="https://formspree.io/f/xgorqjly" method="POST">
-    <input type="text" name="nama" placeholder="Nama">
-    <input type="email" name="email" placeholder="Email">
-    <textarea name="pesan" placeholder="Pesan"></textarea>
-    <button type="submit">Kirim</button>
-  </form>
-</div>
-
-  </div>
-</section>
-
-<!-- ===================== -->
-<!-- FOOTER -->
-<!-- ===================== -->
-<footer class="footer">
-  <div class="footer-content">
-
-    <h3>SMAN 1 Krembung Jurnalistik</h3>
-    <p>Menyampaikan informasi, membangun literasi, dan menginspirasi generasi muda.</p>
-
-    <!-- LINK CEPAT -->
-    <div class="footer-links">
-      <a href="#home">Home</a>
-      <a href="#about">Tentang</a>
-      <a href="#menu">Berita</a>
-      <a href="#contact">Kontak</a>
-    </div>
-
-    <!-- COPYRIGHT -->
-    <p class="copyright">
-      © 2026 SMAN 1 Krembung Jurnalistik | All Rights Reserved
-    </p>
-
-  </div>
-</footer>
-
-<!-- FEATHER ICON -->
-<script src="https://unpkg.com/feather-icons"></script>
-<script>
-  feather.replace();
-</script>
-
-
-
-
-    <!--Feathers Icon-->  
-    <script>
-      feather.replace();
-    </script>
-    <!-- JavaScript-->
-     <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const slides = document.querySelectorAll(".hero .bg");
-  if (slides.length < 2) return;
-
-  let current = 0;
-
-  setInterval(() => {
-    slides[current].classList.remove("active");
-    current = (current + 1) % slides.length;
-    slides[current].classList.add("active");
-  }, 5000);
-});
-</script>
-
-    <script src="js/script.js"></script>
-    <script>
-const track = document.querySelector('.slide-track');
-
-let isDown = false;
-let startX;
-let scrollLeft;
-
-/* ===== START INTERACTION ===== */
-function start(e) {
-  isDown = true;
-  track.classList.add('dragging');
-
-  startX = (e.pageX || e.touches[0].pageX) - track.offsetLeft;
-  scrollLeft = track.scrollLeft;
-}
-
-/* ===== END INTERACTION ===== */
-function end() {
-  isDown = false;
-  track.classList.remove('dragging');
-}
-
-/* ===== MOVE ===== */
-function move(e) {
-  if (!isDown) return;
-
-  const x = (e.pageX || e.touches[0].pageX) - track.offsetLeft;
-  const walk = (x - startX) * 2;
-
-  track.scrollLeft = scrollLeft - walk;
-}
-
-/* ===== MOUSE ===== */
-track.addEventListener('mousedown', start);
-track.addEventListener('mouseup', end);
-track.addEventListener('mouseleave', end);
-track.addEventListener('mousemove', move);
-
-/* ===== TOUCH ===== */
-track.addEventListener('touchstart', start);
-track.addEventListener('touchend', end);
-track.addEventListener('touchmove', move);
-</script>
-
-<script>
-/* ================= BG SLIDER ================= */
-const slides = document.querySelectorAll(".hero .bg");
-let current = 0;
-
-setInterval(() => {
-  slides[current].classList.remove("active");
-  current = (current + 1) % slides.length;
-  slides[current].classList.add("active");
-}, 5000);
-
-/* ================= HERO AUTO ================= */
-let beritaData = [];
-let karyaData = [];
-let iBerita = 0;
-let iKarya = 0;
-
-/* BERITA */
-fetch('https://script.google.com/macros/s/AKfycbyw221VQqj3ql5INNphqZfSfDtpkrFt2xcJTSlgxu7AknNu81KAwyHx5hMyvSC6Px5Z/exec?type=berita')
-  .then(res => res.json())
-  .then(data => {
-    beritaData = data.slice(0,5);
-    updateBerita();
-    setInterval(nextBerita, 5000);
-  });
-  
-function updateBerita() {
-  const item = beritaData[iBerita];
-  const card = document.getElementById("cardBerita");
-
-  card.classList.add("fade-out");
-
-  setTimeout(() => {
-    document.getElementById("imgBerita").src = item.gambar;
-    document.getElementById("judulBerita").innerText = item.judul;
-    document.getElementById("descBerita").innerText = item.deskripsi;
-    document.getElementById("dateBerita").innerText = item.tanggal;
-    card.classList.remove("fade-out");
-  }, 300);
-}
-
-function nextBerita() {
-  iBerita = (iBerita + 1) % beritaData.length;
-  updateBerita();
-}
-
-/* KARYA */
-fetch('data/karya.json')
-  .then(res => res.json())
-  .then(data => {
-    karyaData = data.slice(0,5);
-    updateKarya();
-    setInterval(nextKarya, 5000);
-  });
-
-function updateKarya() {
-  const item = karyaData[iKarya];
-  const card = document.getElementById("cardKarya");
-
-  card.classList.add("fade-out");
-
-  setTimeout(() => {
-    document.getElementById("imgKarya").src = item.gambar;
-    document.getElementById("judulKarya").innerText = item.judul;
-    document.getElementById("descKarya").innerText = item.deskripsi;
-    document.getElementById("dateKarya").innerText = item.tanggal;
-    card.classList.remove("fade-out");
-  }, 300);
-}
-
-function nextKarya() {
-  iKarya = (iKarya + 1) % karyaData.length;
-  updateKarya();
-}
-
-/* ================= AGENDA ================= */
-fetch('data/agenda.json')
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("agendaHome");
-    const today = new Date();
-
-    const upcoming = data
-      .map(item => ({ ...item, dateObj: new Date(item.tanggal) }))
-      .filter(item => item.dateObj >= today)
-      .sort((a,b) => a.dateObj - b.dateObj)
-      .slice(0,3);
-
-    upcoming.forEach(item => {
-      container.innerHTML += `
-        <a href="agenda.html">
-          <div class="agenda-card">
-            <h4>${item.tanggal}</h4>
-            <p>${item.judul}</p>
-            <small>${item.lokasi || ""}</small>
+      <div class="org-quick-grid">
+        <a href="struktur-organisasi.html" class="org-quick-card org-quick-card-main">
+          <div class="org-quick-top">
+            <span class="org-quick-tag">Anggota</span>
+            <i data-feather="users"></i>
           </div>
+          <h3>Struktur Organisasi</h3>
+          <p>Daftar ketua, divisi, dan seluruh anggota tim.</p>
+          <span class="org-quick-link">Buka halaman <i data-feather="arrow-right"></i></span>
         </a>
-      `;
-    });
-  });
-</script>
+
+        <a href="prestasi-internal.html" class="org-quick-card org-accent-blue">
+          <div class="org-quick-top">
+            <span class="org-quick-tag">Prestasi</span>
+            <i data-feather="award"></i>
+          </div>
+          <h3>Prestasi Internal</h3>
+          <p>Rekap prestasi dan pencapaian tim jurnalistik.</p>
+          <span class="org-quick-link">Lihat prestasi <i data-feather="arrow-right"></i></span>
+        </a>
+
+        <a href="karya-internal.html" class="org-quick-card org-accent-green">
+          <div class="org-quick-top">
+            <span class="org-quick-tag">Karya</span>
+            <i data-feather="layers"></i>
+          </div>
+          <h3>Karya Internal</h3>
+          <p>Dokumentasi karya, draft, dan proses kreatif tim.</p>
+          <span class="org-quick-link">Lihat karya <i data-feather="arrow-right"></i></span>
+        </a>
+
+        <a href="tentang-kami.html" class="org-quick-card org-accent-violet">
+          <div class="org-quick-top">
+            <span class="org-quick-tag">Profil</span>
+            <i data-feather="info"></i>
+          </div>
+          <h3>Tentang Kami</h3>
+          <p>Profil, visi, misi, dan kegiatan jurnalistik sekolah.</p>
+          <span class="org-quick-link">Buka profil <i data-feather="arrow-right"></i></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- KONTAK & SOSIAL -->
+    <section id="contact" class="contact">
+      <h2><span>Kontak</span> Kami</h2>
+
+      <div class="contact-container">
+        <!-- INFO -->
+        <div class="contact-info">
+          <h3>SMAN 1 Krembung</h3>
+          <p>Jl. Raya Krembung, Sidoarjo</p>
+          <p>Email: jurnalistik@sman1krembung.sch.id</p>
+
+          <div class="socials">
+            <a href="https://instagram.com/dsoul.jurnalistik" target="_blank" rel="noopener noreferrer">
+              <i data-feather="instagram"></i>
+            </a>
+            <a href="https://youtube.com/@DsoulJurnalistikSMAN1Krembung" target="_blank" rel="noopener noreferrer">
+              <i data-feather="youtube"></i>
+            </a>
+            <a href="https://tiktok.com/@dsoul.jurnalistik" target="_blank" rel="noopener noreferrer">
+              <i data-feather="video"></i>
+            </a>
+            <a href="https://wa.me/6289682252569" target="_blank" rel="noopener noreferrer">
+              <i data-feather="phone"></i>
+            </a>
+            <a href="mailto:dsouljurnalistik@gmail.com">
+              <i data-feather="mail"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- FORM -->
+        <div class="contact-form">
+          <form action="https://formspree.io/f/xgorqjly" method="POST">
+            <input type="text" name="nama" placeholder="Nama" />
+            <input type="email" name="email" placeholder="Email" />
+            <textarea name="pesan" placeholder="Pesan"></textarea>
+            <button type="submit">Kirim</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== -->
+    <!-- FOOTER -->
+    <!-- ===================== -->
+    <footer class="footer">
+      <div class="footer-content">
+        <h3>SMAN 1 Krembung Jurnalistik</h3>
+        <p>Menyampaikan informasi, membangun literasi, dan menginspirasi generasi muda.</p>
+
+        <div class="footer-links">
+          <a href="#home">Home</a>
+          <a href="#about">Tentang</a>
+          <a href="#Menu">Berita</a>
+          <a href="#contact">Kontak</a>
+        </div>
+
+        <p class="copyright">
+          © 2026 SMAN 1 Krembung Jurnalistik | All Rights Reserved
+        </p>
+      </div>
+    </footer>
+
+    <!-- API helper -->
+    <script src="js/api.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-  const track = document.getElementById("beritaContainer");
+document.addEventListener("DOMContentLoaded", async () => {
+  feather.replace();
 
-  fetch("data/berita.json")
-    .then(res => res.json())
-    .then(data => {
-      buildSlider(data);
-      enableDrag(track);
+  const pageLoading = document.getElementById("pageLoading");
+  const hamburger = document.getElementById("hamburger-menu");
+  const navMenu = document.querySelector(".navbar-nav");
+
+  let beritaData = [];
+  let karyaData = [];
+  let prestasiData = [];
+  let prestasiInternalData = [];
+  let karyaInternalData = [];
+  let agendaData = [];
+  let organisasiData = [];
+
+  if (hamburger && navMenu) {
+    hamburger.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      navMenu.classList.toggle("active");
     });
 
-  function buildSlider(data) {
-    const doubled = [...data, ...data]; // INFINITE LOOK
+    document.addEventListener("click", (e) => {
+      if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+        navMenu.classList.remove("active");
+      }
+    });
+  }
 
-    track.innerHTML = doubled.map((item, i) => `
-      <a href="${item.link}" class="card-link">
+  function parseDateLocal(value) {
+    if (!value) return null;
+    const d = new Date(value);
+    if (isNaN(d.getTime())) return null;
+    d.setHours(0, 0, 0, 0);
+    return d;
+  }
+
+  function isExternal(url) {
+    return /^https?:\/\//i.test(String(url || ""));
+  }
+
+  function getStartDate(item) {
+    return parseDateLocal(
+      item.tanggalMulaiRaw ||
+      item.tanggalRaw ||
+      item.tanggalMulai ||
+      item.tanggal
+    );
+  }
+
+  function getEndDate(item) {
+    return parseDateLocal(
+      item.tanggalBerakhirRaw ||
+      item.tanggalBerakhir ||
+      item.tanggalMulaiRaw ||
+      item.tanggalRaw ||
+      item.tanggalMulai ||
+      item.tanggal
+    );
+  }
+
+  function agendaStatus(item) {
+    const start = getStartDate(item);
+    const end = getEndDate(item);
+
+    const now = new Date();
+    now.setHours(0, 0, 0, 0);
+
+    if (!start) return "upcoming";
+    if (now < start) return "upcoming";
+    if (end && now > end) return "done";
+    if (end && now >= start && now <= end) return "ongoing";
+    return "ongoing";
+  }
+
+  function agendaLabel(status) {
+    switch (status) {
+      case "ongoing":
+        return "Sedang Berlangsung";
+      case "upcoming":
+        return "Akan Datang";
+      case "done":
+        return "Selesai";
+      default:
+        return "Agenda";
+    }
+  }
+
+  function formatDate(value) {
+    const d = parseDateLocal(value);
+    if (!d) return String(value || "");
+    return d.toLocaleDateString("id-ID", {
+      day: "numeric",
+      month: "long",
+      year: "numeric"
+    });
+  }
+
+  function formatRange(item) {
+    const startText = item.tanggalMulai || formatDate(item.tanggalMulaiRaw || item.tanggalRaw || item.tanggal);
+    const endText = item.tanggalBerakhir || formatDate(item.tanggalBerakhirRaw || item.tanggalBerakhir || item.tanggalMulaiRaw || item.tanggalRaw || item.tanggal);
+
+    if (!startText) return endText || "";
+    if (!endText || endText === startText) return startText;
+    return `${startText} - ${endText}`;
+  }
+
+  function normalizeAgenda(data) {
+    if (!Array.isArray(data)) return [];
+    return data.map((item, index) => ({
+      id: item.id ?? `a-${index + 1}`,
+      judul: item.judul || "",
+      subjudul: item.subjudul || "",
+      tanggalMulaiRaw: item.tanggalMulaiRaw || item.tanggalRaw || item.tanggal || "",
+      tanggalMulai: item.tanggalMulai || item.tanggal || "",
+      tanggalBerakhirRaw: item.tanggalBerakhirRaw || item.tanggalMulaiRaw || item.tanggalRaw || item.tanggal || "",
+      tanggalBerakhir: item.tanggalBerakhir || item.tanggal || "",
+      waktu: item.waktu || "",
+      dresscode: item.dresscode || "",
+      kegiatan: item.kegiatan || "",
+      deskripsi: item.deskripsi || "",
+      gambar: item.gambar || "img/default.jpg",
+      link: item.link || "",
+      eventStatus: item.eventStatus || "",
+      sumber: item.sumber || "umum"
+    }));
+  }
+
+  function sortAgendaByStartAsc(data) {
+    return [...data].sort((a, b) => {
+      const da = getStartDate(a);
+      const db = getStartDate(b);
+      return (da ? da.getTime() : 0) - (db ? db.getTime() : 0);
+    });
+  }
+
+  function sortAgendaByStartDesc(data) {
+    return [...data].sort((a, b) => {
+      const da = getStartDate(a);
+      const db = getStartDate(b);
+      return (db ? db.getTime() : 0) - (da ? da.getTime() : 0);
+    });
+  }
+
+  function setRotatingCard({
+    data,
+    cardId,
+    imgId,
+    titleId,
+    descId,
+    dateId,
+    fallbackLink,
+    defaultTitle = "",
+    defaultDesc = "",
+    defaultDate = "",
+    interval = 5000
+  }) {
+    const card = document.getElementById(cardId);
+    if (!card) return;
+
+    card.href = fallbackLink;
+
+    const img = imgId ? document.getElementById(imgId) : null;
+    const title = titleId ? document.getElementById(titleId) : null;
+    const desc = descId ? document.getElementById(descId) : null;
+    const date = dateId ? document.getElementById(dateId) : null;
+
+    const list = Array.isArray(data) ? data : [];
+    if (!list.length) {
+      if (img) img.src = "img/default.jpg";
+      if (title && defaultTitle) title.innerText = defaultTitle;
+      if (desc && defaultDesc) desc.innerText = defaultDesc;
+      if (date && defaultDate) date.innerText = defaultDate;
+      return;
+    }
+
+    let index = 0;
+
+    const render = () => {
+      const item = list[index];
+
+      if (img) {
+        img.src = item.gambar || "img/default.jpg";
+        img.alt = item.judul || defaultTitle || "";
+      }
+
+      if (title) title.innerText = item.judul || defaultTitle || "";
+      if (desc) desc.innerText = item.deskripsi || item.subjudul || item.kegiatan || defaultDesc || "";
+      if (date) date.innerText = item.tanggal || formatRange(item) || defaultDate || "";
+    };
+
+    render();
+
+    setInterval(() => {
+      card.classList.add("fade-out");
+      setTimeout(() => {
+        index = (index + 1) % list.length;
+        render();
+        card.classList.remove("fade-out");
+      }, 300);
+    }, interval);
+  }
+
+  function renderNewsSlider(data) {
+    const track = document.getElementById("beritaContainer");
+    if (!track || !Array.isArray(data)) return;
+
+    const top = data.slice(0, 8);
+    if (!top.length) return;
+
+    track.innerHTML = [...top, ...top].map(item => `
+      <a href="detail-berita.html?id=${encodeURIComponent(item.id)}" class="card-link">
         <div class="card">
-          <img src="${item.gambar}">
-          <h3>${item.judul}</h3>
-          <p>${item.deskripsi}</p>
+          <img src="${item.gambar || 'img/default.jpg'}" alt="${item.judul}" onerror="this.src='img/default.jpg'">
+          <h3>${item.judul || ""}</h3>
+          <p>${item.deskripsi || ""}</p>
           <span class="btn">Baca</span>
         </div>
       </a>
     `).join("");
+
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    const start = (e) => {
+      isDown = true;
+      track.classList.add("dragging");
+      startX = (e.pageX || e.touches?.[0]?.pageX) - track.offsetLeft;
+      scrollLeft = track.scrollLeft;
+    };
+
+    const end = () => {
+      isDown = false;
+      track.classList.remove("dragging");
+    };
+
+    const move = (e) => {
+      if (!isDown) return;
+      const x = (e.pageX || e.touches?.[0]?.pageX) - track.offsetLeft;
+      const walk = (x - startX) * 2;
+      track.scrollLeft = scrollLeft - walk;
+    };
+
+    track.addEventListener("mousedown", start);
+    track.addEventListener("mouseup", end);
+    track.addEventListener("mouseleave", end);
+    track.addEventListener("mousemove", move);
+
+    track.addEventListener("touchstart", start, { passive: true });
+    track.addEventListener("touchend", end);
+    track.addEventListener("touchmove", move, { passive: true });
   }
 
-  // DRAG SYSTEM
-  function enableDrag(el) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+  function renderAgendaHome(data) {
+    const container = document.getElementById("agendaHome");
+    if (!container || !Array.isArray(data)) return;
 
-    el.addEventListener("mousedown", (e) => {
-      isDown = true;
-      el.classList.add("dragging");
-      startX = e.pageX - el.offsetLeft;
-      scrollLeft = el.scrollLeft;
+    const list = sortAgendaByStartAsc(data);
+    if (!list.length) {
+      container.innerHTML = `
+        <a href="agenda.html" class="agenda-card">
+          <h4>Belum ada agenda</h4>
+          <p>Buka halaman agenda untuk melihat detail.</p>
+          <small>Agenda Sekolah</small>
+        </a>
+      `;
+      return;
+    }
+
+    const ongoing = [];
+    const upcoming = [];
+    const done = [];
+
+    list.forEach(item => {
+      const status = agendaStatus(item);
+      if (status === "ongoing") ongoing.push(item);
+      else if (status === "upcoming") upcoming.push(item);
+      else done.push(item);
     });
 
-    el.addEventListener("mouseleave", () => {
-      isDown = false;
-      el.classList.remove("dragging");
+    const priority = [
+      ...ongoing,
+      ...upcoming,
+      ...done
+    ].slice(0, 3);
+
+    container.innerHTML = priority.map(item => {
+      const status = agendaStatus(item);
+      const href = item.link && String(item.link).trim() !== "" ? item.link : "agenda.html";
+      const target = isExternal(href) ? "_blank" : "_self";
+      const rel = isExternal(href) ? "noopener noreferrer" : "";
+
+      return `
+        <a href="${href}" target="${target}" rel="${rel}" class="agenda-link">
+          <div class="agenda-card">
+            <h4>${formatRange(item)}</h4>
+            <p>${item.judul || ""}</p>
+            <small>${agendaLabel(status)}</small>
+          </div>
+        </a>
+      `;
+    }).join("");
+  }
+
+  try {
+    const [berita, karya, prestasi, prestasiInternal, karyaInternal, agenda, organisasi] = await Promise.all([
+      fetchJson("berita"),
+      fetchJson("karya"),
+      fetchJson("prestasi"),
+      fetchJson("prestasi-internal"),
+      fetchJson("karya-internal"),
+      fetchJson("agenda"),
+      fetchJson("organisasi")
+    ]);
+
+    beritaData = Array.isArray(berita) ? berita : [];
+    karyaData = Array.isArray(karya) ? karya : [];
+    prestasiData = Array.isArray(prestasi) ? prestasi : [];
+    prestasiInternalData = Array.isArray(prestasiInternal) ? prestasiInternal : [];
+    karyaInternalData = Array.isArray(karyaInternal) ? karyaInternal : [];
+    agendaData = Array.isArray(agenda) ? agenda : [];
+    organisasiData = Array.isArray(organisasi) ? organisasi : [];
+
+    setRotatingCard({
+      data: prestasiData,
+      cardId: "cardPrestasiSekolah",
+      imgId: "imgPrestasiSekolah",
+      titleId: "judulPrestasiSekolah",
+      descId: "descPrestasiSekolah",
+      dateId: "datePrestasiSekolah",
+      fallbackLink: "prestasi.html",
+      defaultTitle: "Prestasi Sekolah",
+      defaultDesc: "Prestasi terbaru SMAN 1 Krembung."
     });
 
-    el.addEventListener("mouseup", () => {
-      isDown = false;
-      el.classList.remove("dragging");
+    setRotatingCard({
+      data: beritaData,
+      cardId: "cardBerita",
+      imgId: "imgBerita",
+      titleId: "judulBerita",
+      descId: "descBerita",
+      dateId: "dateBerita",
+      fallbackLink: "berita.html",
+      defaultTitle: "Berita Terbaru",
+      defaultDesc: "Update berita terbaru sekolah."
     });
 
-    el.addEventListener("mousemove", (e) => {
-      if (!isDown) return;
-      e.preventDefault();
-      const x = e.pageX - el.offsetLeft;
-      const walk = (x - startX) * 2;
-      el.scrollLeft = scrollLeft - walk;
+    setRotatingCard({
+      data: karyaData,
+      cardId: "cardKarya",
+      imgId: "imgKarya",
+      titleId: "judulKarya",
+      descId: "descKarya",
+      dateId: "dateKarya",
+      fallbackLink: "karya.html",
+      defaultTitle: "Karya Terbaru",
+      defaultDesc: "Karya terbaru siswa jurnalistik."
     });
 
-    // TOUCH HP
-    el.addEventListener("touchstart", (e) => {
-      isDown = true;
-      startX = e.touches[0].pageX - el.offsetLeft;
-      scrollLeft = el.scrollLeft;
+    setRotatingCard({
+      data: prestasiInternalData,
+      cardId: "cardPrestasi",
+      imgId: "imgPrestasi",
+      titleId: "judulPrestasi",
+      descId: "descPrestasi",
+      dateId: null,
+      fallbackLink: "prestasi-internal.html",
+      defaultTitle: "Prestasi Tim",
+      defaultDesc: "Prestasi internal terbaru tim jurnalistik."
     });
 
-    el.addEventListener("touchend", () => {
-      isDown = false;
+    setRotatingCard({
+      data: karyaInternalData,
+      cardId: "cardKaryaInternal",
+      imgId: "imgKaryaInternal",
+      titleId: null,
+      descId: "descKaryaInternal",
+      dateId: null,
+      fallbackLink: "karya-internal.html",
+      defaultDesc: "Karya internal terbaru tim jurnalistik."
     });
 
-    el.addEventListener("touchmove", (e) => {
-      if (!isDown) return;
-      const x = e.touches[0].pageX - el.offsetLeft;
-      const walk = (x - startX) * 2;
-      el.scrollLeft = scrollLeft - walk;
-    });
+    renderNewsSlider(beritaData);
+    renderAgendaHome(agendaData);
+  } catch (err) {
+    console.error("Gagal memuat data index:", err);
+    renderAgendaHome([]);
+  }
+
+  const statsContainer = document.getElementById("orgStats");
+  if (statsContainer) {
+    statsContainer.innerHTML = `
+      <div class="stat-card">
+        <div class="stat-num">${organisasiData.length}</div>
+        <p>Anggota Jurnalistik</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">${prestasiData.length}</div>
+        <p>Prestasi</p>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">${karyaData.length}</div>
+        <p>Karya</p>
+      </div>
+    `;
+  }
+
+  if (pageLoading) {
+    pageLoading.classList.add("hidden");
+    setTimeout(() => {
+      pageLoading.style.display = "none";
+    }, 400);
   }
 });
-</script>
-
-<script>
-let prestasiData = [];
-let karyaInternalData = [];
-
-let iPrestasi = 0;
-let iKaryaInternal = 0;
-
-/* ================= PRESTASI ================= */
-fetch('data/prestasi.json')
-  .then(res => res.json())
-  .then(data => {
-    prestasiData = data.slice(0, 5);
-    updatePrestasi();
-    setInterval(nextPrestasi, 5000);
-  });
-
-function updatePrestasi() {
-  const item = prestasiData[iPrestasi];
-  const card = document.getElementById("cardPrestasi");
-
-  card.classList.add("fade-out");
-
-  setTimeout(() => {
-    document.getElementById("imgPrestasi").src = item.gambar;
-    document.getElementById("judulPrestasi").innerText = item.judul;
-    document.getElementById("descPrestasi").innerText = item.deskripsi;
-    card.classList.remove("fade-out");
-  }, 300);
-}
-
-function nextPrestasi() {
-  iPrestasi = (iPrestasi + 1) % prestasiData.length;
-  updatePrestasi();
-}
-
-/* ================= KARYA INTERNAL ================= */
-fetch('data/karya-internal.json')
-  .then(res => res.json())
-  .then(data => {
-    karyaInternalData = data.slice(0, 5);
-    updateKaryaInternal();
-    setInterval(nextKaryaInternal, 5000);
-  });
-
-function updateKaryaInternal() {
-  const item = karyaInternalData[iKaryaInternal];
-  const card = document.getElementById("cardKaryaInternal");
-
-  card.classList.add("fade-out");
-
-  setTimeout(() => {
-    document.getElementById("imgKaryaInternal").src = item.gambar;
-    document.getElementById("descKaryaInternal").innerText = item.deskripsi;
-    card.classList.remove("fade-out");
-  }, 300);
-}
-
-function nextKaryaInternal() {
-  iKaryaInternal = (iKaryaInternal + 1) % karyaInternalData.length;
-  updateKaryaInternal();
-}
-</script>
-
-<script>
-let prestasiSekolahData = [];
-let iPrestasiSekolah = 0;
-
-fetch('data/prestasi.json')
-  .then(res => res.json())
-  .then(data => {
-    prestasiSekolahData = data.slice(0, 5);
-    updatePrestasiSekolah();
-    setInterval(nextPrestasiSekolah, 5000);
-  });
-
-function updatePrestasiSekolah() {
-  if (!prestasiSekolahData.length) return;
-
-  const item = prestasiSekolahData[iPrestasiSekolah];
-  const card = document.getElementById("cardPrestasiSekolah");
-
-  if (!card) return;
-
-  card.classList.add("fade-out");
-
-  setTimeout(() => {
-    document.getElementById("imgPrestasiSekolah").src = item.gambar;
-    document.getElementById("judulPrestasiSekolah").innerText = item.judul;
-    document.getElementById("descPrestasiSekolah").innerText = item.deskripsi;
-    document.getElementById("datePrestasiSekolah").innerText = item.tanggal || item.tahun || "";
-    card.classList.remove("fade-out");
-  }, 300);
-}
-
-function nextPrestasiSekolah() {
-  if (!prestasiSekolahData.length) return;
-  iPrestasiSekolah = (iPrestasiSekolah + 1) % prestasiSekolahData.length;
-  updatePrestasiSekolah();
-}
 </script>
   </body>
 </html>

@@ -81,11 +81,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function safeFetch(path) {
     return fetch(path)
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .catch(() => []);
+      .then(res => res.ok ? res.json() : null)
+      .catch(() => null);
   }
 
   Promise.all([
@@ -94,13 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
     safeFetch("data/karya-internal.json")
   ]).then(([org, prestasi, karya]) => {
 
-    const anggotaUnik = Array.isArray(org.anggotaUnik) ? org.anggotaUnik : [];
+    if (!org) org = { anggotaUnik: [], ketua: [], sekretaris: [], bendahara: [], koordinator: [], anggota: [] };
 
-    // ✅ STATISTIK
+    const anggotaUnik = org.anggotaUnik || [];
+
     const stats = [
       { label: "Anggota Jurnalistik", value: anggotaUnik.length },
-      { label: "Prestasi", value: prestasi.length },
-      { label: "Karya", value: karya.length }
+      { label: "Prestasi", value: prestasi ? prestasi.length : 0 },
+      { label: "Karya", value: karya ? karya.length : 0 }
     ];
 
     renderStats(statsContainer, stats);
@@ -136,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
       { key: "ketua", title: "Ketua & Wakil", accent: "chief", icon: "user-check" },
       { key: "sekretaris", title: "Sekretaris", accent: "admin", icon: "file-text" },
       { key: "bendahara", title: "Bendahara", accent: "finance", icon: "credit-card" },
-      { key: "koordinator", title: "Koordinator", accent: "coord", icon: "shuffle" },
+      { key: "koordinator", title: "Koordinator Divisi", accent: "coord", icon: "shuffle" },
       { key: "anggota", title: "Anggota", accent: "member", icon: "users" }
     ];
 
@@ -159,7 +157,7 @@ document.addEventListener("DOMContentLoaded", () => {
     `).join("");
 
     groups.forEach(group => {
-      const card = container.querySelector(`.structure-card[data-group="${group.key}"]`);
+      const card = container.querySelector(`[data-group="${group.key}"]`);
       const list = data[group.key] || [];
 
       if (!card) return;
@@ -173,10 +171,9 @@ document.addEventListener("DOMContentLoaded", () => {
       let index = 0;
 
       const paint = (item) => {
-        card.querySelector(".structure-photo").src = item.foto;
-        card.querySelector(".structure-photo").alt = item.nama;
-        card.querySelector("h3").textContent = item.nama;
-        card.querySelector(".structure-role").textContent = item.jabatan;
+        card.querySelector(".structure-photo").src = item.foto || "";
+        card.querySelector("h3").textContent = item.nama || "";
+        card.querySelector(".structure-role").textContent = item.jabatan || "";
         card.querySelector(".structure-note").textContent = item.catatan || "";
       };
 
@@ -189,8 +186,8 @@ document.addEventListener("DOMContentLoaded", () => {
             index = (index + 1) % list.length;
             paint(list[index]);
             card.classList.remove("is-fading");
-          }, 180);
-        }, 3200);
+          }, 150);
+        }, 3000);
       }
     });
   }
@@ -200,7 +197,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     container.innerHTML = members.map(item => `
       <div class="member-pill">
-        <img src="${item.foto}" alt="${item.nama}">
+        <img src="${item.foto || ''}" alt="${item.nama}">
         <div>
           <h4>${item.nama}</h4>
           <p>${item.jabatan}</p>
@@ -209,15 +206,6 @@ document.addEventListener("DOMContentLoaded", () => {
     `).join("");
   }
 });
-
-// NAVBAR MOBILE
-const menu = document.querySelector('#hamburger-menu');
-const nav = document.querySelector('.navbar-nav');
-
-menu.onclick = (e) => {
-  e.preventDefault();
-  nav.classList.toggle('active');
-};
 </script>
 
 </body>
